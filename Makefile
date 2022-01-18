@@ -1,0 +1,48 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: belhatho <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/01/18 22:11:20 by belhatho          #+#    #+#              #
+#    Updated: 2022/01/18 22:11:22 by belhatho         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = minishell
+
+SRC = main.c commands.c 
+SRC += builtin_unset.c builtin_echo.c builtin_cd.c builtin_setenv.c
+SRC += environment.c parse_input.c
+
+SRCS = $(SRC:%=srcs/%)
+OBJS = $(SRC:%.c=objs/%.o)
+LIBFT = ./libft/ -lft
+
+FLAGS = -Wall# -Wextra -Weroor
+CREATE_OBJ = objs
+
+all: $(NAME)
+
+$(NAME): $(CREATE_OBJ) $(OBJS)
+	@make -C libft
+	@gcc $(FLAGS) -o $(NAME) $(OBJS) -L $(LIBFT)
+
+$(CREATE_OBJ):
+	@mkdir -p $@
+
+objs/%.o: srcs/%.c srcs/minishell.h libft/libft.h
+	@gcc $(FLAGS) -c $< -o $@
+
+clean:
+		@make clean -C libft
+		@rm -f $(OBJS)
+
+fclean: clean
+	        @make fclean -C libft
+			        @rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
