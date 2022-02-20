@@ -74,6 +74,10 @@ char			**ft_strsplit(char const *s, char c);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strtrim(char const *s);
 void			ft_putstr(char const *s);
+void			ft_put2str(char const *s, char const *s1);
+void			ft_put3str(char const *s, char const *s1, char const *s2);
+void			ft_put4str(char const *s, char const *s1, char const *s2, char const *s3);
+
 void			ft_putendl(char const *s);
 void			ft_putnbr(int nb);
 void			ft_putchar_fd(char c, int fd);

@@ -19,6 +19,10 @@
 # include <signal.h>
 # include "../libft/libft.h"
 
+
+#include<stdio.h>
+
+
 typedef	struct s_env
 {
 	char	**vars;
@@ -27,5 +31,8 @@ typedef	struct s_env
 
 
 t_env	init_environment(int ac, char **av, char **env);
+void	print_env(t_env m_env);
+char	*get_var(char *name, t_env m_env);
 
+void	free_exit(t_env m_e);
 #endif

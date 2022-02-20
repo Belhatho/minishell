@@ -27,12 +27,12 @@ all: $(NAME)
 
 $(NAME): $(CREATE_OBJ) $(OBJS)
 	@make -C libft
-	@gcc $(FLAGS) -o $(NAME) $(OBJS) -L $(LIBFT)
+	@gcc $(FLAGS) -o $(NAME)  -I ./inc/ $(OBJS) -L $(LIBFT)
 
 $(CREATE_OBJ):
 	@mkdir -p $@
 
-objs/%.o: srcs/%.c srcs/minishell.h libft/libft.h
+objs/%.o: srcs/%.c inc/minishell.h libft/libft.h
 	@gcc $(FLAGS) -c $< -o $@
 
 clean:
@@ -41,7 +41,7 @@ clean:
 
 fclean: clean
 	        @make fclean -C libft
-			        @rm -f $(NAME)
+			@rm -f $(NAME)
 
 re: fclean all
 

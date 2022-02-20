@@ -22,3 +22,19 @@ void	ft_putstr(char const *s)
 		s++;
 	}
 }
+void	ft_put2str(char const *s, char const *s1)
+{
+	ft_putstr(s);
+	ft_putstr(s1);
+}
+void	ft_put3str(char const *s, char const *s1, char const *s2)
+{
+	ft_put2str(s, s1);
+	ft_putstr(s2);
+}
+
+void	ft_put4str(char const *s, char const *s1, char const *s2, char const *s3)
+{
+	ft_put3str(s, s1, s2);
+	ft_putstr(s3);
+}
