@@ -12,6 +12,22 @@
 
 # include "../inc/minishell.h"
 
+void	print_env(t_env m_env)
+{
+	int	i;
+
+	i = 0;
+
+	if (!m_env.vars || m_env.vars[0] == '\0')
+		return ;
+	while (m_env.vars[i])
+	{
+		ft_put2str(m_env.vars[i], "\n");
+		i++;
+	}
+	
+}
+
 t_env	init_environment(int ac, char **av, char **env)
 {
 	int i;
@@ -29,11 +45,12 @@ t_env	init_environment(int ac, char **av, char **env)
 			free_exit(m_env);
 		i++;
 	}
-	m_env.vars[i] = NULL;
+	m_env.vars[i] = 0;
 	/**/
 	return (m_env);
 }
- /*
+
+ 
 char	**alloc_env(t_env m_env, int size)
 {
 	char	**new;
@@ -48,74 +65,4 @@ char	**alloc_env(t_env m_env, int size)
 	}
 	free(m_env.vars);
 	return (new);
-}
-*/
-
-char	*do_path(char *name, char *d_name)
-{
-	char	*path;
-	char	*tmp;
-
-	if ((name[0] == '/' && name[1] == '\0') ||
-					name[ft_strlen(name) - 1] == '/' || d_name[0] == '/')
-		path = ft_strjoin(name, d_name);
-	else
-	{
-		tmp = ft_strjoin(name, "/");
-		path = ft_strjoin(tmp, d_name);
-		ft_strdel(&tmp);
-	}
-	return (path);
-}
-
-void	print_env(t_env m_env)
-{
-	char **var;
-	int	i;
-
-	i = 0;
-	var = m_env.vars;
-
-
-	while (var && var[i])
-	{
-		ft_put2str(var[i], "\n");
-		i++;
-	}
-	
-}
-
-
-int		is_first_word(char *s1, char *s2)
-{
-	int	i;
-
-	i = -1;
-	while (s2[++i])
-		if (s1[i] != s2[i])
-			return (0);
-	return (1);
-}
-
-char            *get_var(char *name, t_env m_env)
-{
-   	int		i;
-	char	*tmp;
-	t_env	env;
-
-	env = m_env;
-	i = -1;
-	if (!env.vars)
-		return (NULL);
-	while (env.vars[++i])
-	{
-		tmp = ft_strjoin(name, "=");
-		if (is_first_word(env.vars[i], tmp))
-		{
-			ft_strdel(&tmp);
-			return (ft_strchr(env.vars[i], '=') + 1);
-		}
-		ft_strdel(&tmp);
-	}
-	return (NULL);
 }

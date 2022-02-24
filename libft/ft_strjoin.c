@@ -81,3 +81,23 @@ char	*ft_strjoin2(char *s1, char *s2, int tofree)
 	ft_free_join(&s1, &s2, tofree);
 	return (frch);
 }
+
+char	*ft_strchjoin(char *s1, char c)
+{
+	char	*new_str;
+	size_t	i;
+	size_t	s1_len;
+
+	if (!s1 || !c)
+		return (NULL);
+	s1_len = ft_strlen(s1);
+	new_str = ft_strnew(s1_len + 1);
+	if (!new_str)
+		return (NULL);
+	i = -1;
+	while (++i < s1_len)
+		*(new_str + i) = *(s1 + i);
+	*(new_str + i) = c;
+	free(s1);
+	return (new_str);
+}
