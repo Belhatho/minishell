@@ -12,6 +12,12 @@
 
 # include "../inc/minishell.h"
 
+int	isspce(char c)
+{
+	if (c == ' ' || c == '\t')
+		return (1);
+	return (0);
+}
 void	free_exit(t_env m_env)
 {
 	ft_free(&m_env.vars);
@@ -32,50 +38,43 @@ char	*parse_dollar(char *input, int index, t_env m_env)
 {
 	char	*key;
 	char	*val;
-	int		len;
-	int		i;
+	char	c;
 
-	len = 0;
-	i = index - 1;
-	while (input[++i] && input[i] != ' ' && input[i] != '$')
-		len++;
-	key = ft_memalloc(len + 1);
-	i = -1;
-	while (++i < len)
-		key[i] = input[index + i];
-	key[i] = '\0';
-	printf("**KEY: %s", key);
+	key = ft_strnew(1);
+	while (input[index] && !isspce(input[index]) && input[index] != '$')
+	{
+		c = input[index];
+		key = ft_strchjoinf(key, c);
+		index++;
+	}
+	// ft_put2str("**KEY: ", key);
 	val = get_var(key, m_env);
+	if (!val)
+	{
+		free(key);
+		return (NULL);
+	}
 	free(key);
 	return (val);
 }
 
-char	*parser(char **in, t_env env)
+char	*parser(char *input, t_env env)
 {
 	int	i;
 	char	*ret;
-	char	*input;
-	char	*tmp;
 
 	i = -1;
 	ret = ft_strnew(0);
-	input = ft_strdup(*in);
-	ft_strdel(in);
 	if ((ft_strchr(input, '$') != NULL) || (ft_strchr(input, '~') != NULL))
 	{
 		while (input[++i])
 		{
 			if (input[i] == '$' && input[i + 1])
 			{
-				ft_putstr("\n** $ **\n");
-				while (input[i] == '$' && input[i + 1])
+				// ft_putstr("\n** $ **\n");
+				ret = ft_strjoin(ret, parse_dollar(input, i + 1, env));
+				while (input[i + 1]  && !isspce(input[i]) && input[i + 1] != '$')
 					i++;
-				tmp = parse_dollar(input, i, env);
-				ret = ft_strjoin2(ret, tmp, 0);
-				while (input[i + 1] && input[i + 1] != '$' && input[i] != ' ')
-					i++;
-				if (input[i - 1 == ' '])
-					i--;
 			}
 			// 	else if (input[i] == '~' && ( i == 0 || (i != 0 && input[i - 1] != ' ')))
 			// 	{
@@ -85,6 +84,7 @@ char	*parser(char **in, t_env env)
 			else
 				ret = ft_strchjoin(ret, input[i]);
 		}
+		free(input);
 		return (ret);
 	}
 	return(input);
@@ -113,8 +113,8 @@ void	input_handler(char **input, t_env m_env)
 		free(*input);
 		free_exit(m_env);
 	}
-	ft_put3str("\nhandlerInput:\t",*input, "\n");
-	*input = parser(input, m_env);
+	// ft_put3str("\nhandlerInput:\t",*input, "\n");
+	*input = parser(*input, m_env);
 
 }
 
@@ -122,15 +122,16 @@ void tests(t_env m_env)
 {
 	ft_putstr("\n***ENVIRONMENT***\n\n");
 	print_env(m_env);
-	// printf("\n***GET VARS***\n\nHOME\t%s\nPWD\t%s\nPATH\t%s\n/_\t%s\n"
-	// 		, get_var("HOME", m_env),	get_var("PWD", m_env),\
-	// 		get_var("PATH", m_env), get_var("_", m_env));
+	printf("\n***GET VARS***\n\nHOME\t%s\nPWD\t%s\nPATH\t%s\n/_\t%s\n"
+			, get_var("HOME", m_env),	get_var("PWD", m_env),\
+			get_var("PATH", m_env), get_var("_", m_env));
 }
 
 int main(int ac, char **av, char **env)
 {
 	t_env	m_env;
 	char	*input;
+	char	**cmds;
 
 	input = NULL;
 	m_env = init_environment(ac, av, env);
@@ -142,6 +143,10 @@ int main(int ac, char **av, char **env)
 		prompt();
 		input_handler(&input, m_env);
 		ft_put3str("\n-INPUT-\t:",input, "\n");
+		cmds = ft_strsplit(input, ';');
+		ft_strdel(&input);
+		// if (execution(cmds, m_env) == -1)
+		// 	break;
 	}
 
 	return (0);

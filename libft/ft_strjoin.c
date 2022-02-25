@@ -40,49 +40,53 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s);
 }
 
-static	void	ft_free_join(char **s1, char **s2, int tofree)
-{
-	if (tofree == 0)
-		free(*s1);
-	else if (tofree == 1)
-		free(*s2);
-	else if (tofree == 2)
-	{
-		free(*s1);
-		free(*s2);
-	}
-}
+// char	*ft_strjoin1(char *s1, char *s2, int tofree)
+// {
+// 	char		*frch;
+// 	int			i;
+// 	int			j;
+
+// 	i = 0;
+// 	j = 0;
+// 	if (s1 == NULL || s2 == NULL)
+// 		return (NULL);
+// 	frch = (char *)malloc(sizeof(char *) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+// 	if (!(frch))
+// 		return (NULL);
+// 	while (s1[i] != '\0')
+// 	{
+// 		frch[i] = s1[i];
+// 		i++;
+// 	}
+// 	while (s2[j] != '\0')
+// 	{
+// 		frch[i] = s2[j];
+// 		i++;
+// 		j++;
+// 	}
+// 	frch[i] = '\0';
+// 	// ft_free_join(&s1, &s2, tofree);
+// 	return (frch);
+// }
 
 char	*ft_strjoin2(char *s1, char *s2, int tofree)
 {
-	char		*frch;
-	int			i;
-	int			j;
 
-	i = 0;
-	j = 0;
-	if (s1 == NULL || s2 == NULL)
+	char	*new;
+
+	if (!(new = ft_strjoin(s1, s2)))
 		return (NULL);
-	frch = (char *)malloc(sizeof(char *) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!(frch))
-		return (NULL);
-	while (s1[i] != '\0')
+	free(s1);
+	s1 = NULL;
+	if (tofree)
 	{
-		frch[i] = s1[i];
-		i++;
+		free(s2);
+		s2 = NULL;
 	}
-	while (s2[j] != '\0')
-	{
-		frch[i] = s2[j];
-		i++;
-		j++;
-	}
-	frch[i] = '\0';
-	ft_free_join(&s1, &s2, tofree);
-	return (frch);
+	return (new);
 }
 
-char	*ft_strchjoin(char *s1, char c)
+char	*ft_strchjoin(const char *s1, char c)
 {
 	char	*new_str;
 	size_t	i;
@@ -98,6 +102,16 @@ char	*ft_strchjoin(char *s1, char c)
 	while (++i < s1_len)
 		*(new_str + i) = *(s1 + i);
 	*(new_str + i) = c;
-	free(s1);
 	return (new_str);
+}
+
+char	*ft_strchjoinf(char *s1, char c)
+{
+	char	*new;
+
+	if (!(new = ft_strchjoin(s1, c)))
+		return (NULL);
+	free(s1);
+	s1 = NULL;
+	return (new);
 }
