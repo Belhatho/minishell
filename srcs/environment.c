@@ -20,7 +20,7 @@ int	print_env(char **m_envvars)// t_env m_env)
 	if (!m_envvars || !m_envvars[0])
 		return (0);
 	while (m_envvars && m_envvars[++i])
-		// ft_putendl(m_envvars[i]);
+		ft_putendl(m_envvars[i]);
 	return (1);
 }
 
@@ -37,7 +37,7 @@ t_env	init_environment(int ac, char **av, char **env)
 	while (env[++i])
 	{
 		m_env.vars[i] = ft_strdup(env[i]);
-				ft_putendl(m_env.vars[i]);
+				// ft_putendl(m_env.vars[i]);
 		if (!m_env.vars[i])
 			free_exit(m_env);
 	}
