@@ -12,15 +12,15 @@
 
 # include "../inc/minishell.h"
 
-int	print_env(char **m_envvars)// t_env m_env)
+int	print_env(t_env m_env)
 {
 	int	i;
 
 	i = -1;
-	if (!m_envvars || !m_envvars[0])
+	if (!m_env.vars || !m_env.vars[0])
 		return (0);
-	while (m_envvars && m_envvars[++i])
-		ft_putendl(m_envvars[i]);
+	while (m_env.vars && m_env.vars[++i])
+		ft_putendl(m_env.vars[i]);
 	return (1);
 }
 
@@ -33,23 +33,17 @@ t_env	init_environment(int ac, char **av, char **env)
 	(void)av;
 	
 	i = -1;
-	m_env.vars = (char**)ft_memalloc(ft_strlen2(env) + 1);
+	m_env.vars = (char**)ft_memalloc(sizeof(char*) * (ft_strlen2(env) + 1));
 	while (env[++i])
 	{
 		m_env.vars[i] = ft_strdup(env[i]);
-				// ft_putendl(m_env.vars[i]);
 		if (!m_env.vars[i])
 			free_exit(m_env);
 	}
-	m_env.vars[i] = NULL;
-	/**/
-	// i = -1;
-	// while (m_env.vars[++i])
-	// 	ft_put3str("--\t",m_env.vars[i], "\n");
+	m_env.vars[i] = 0;
 	return (m_env);
 }
 
- 
 char	**alloc_env(t_env m_env, int size)
 {
 	char	**new;

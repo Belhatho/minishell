@@ -31,8 +31,8 @@ typedef	struct s_env
 
 
 t_env	init_environment(int ac, char **av, char **env);
-int	print_env(char** m_env);
 char	*get_var(char *name, t_env m_env);
+int	print_env(t_env m_env);
 
 int	execution(char **commands, t_env env);
 

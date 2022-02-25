@@ -20,7 +20,7 @@ int	isspce(char c)
 }
 void	free_exit(t_env m_env)
 {
-	ft_free(&m_env.vars);
+	// ft_free(&m_env.vars);
 	write(1, "\n", 1);
 	exit(0);
 }
@@ -31,7 +31,7 @@ void	prompt()
 	// char	buff[4097];
 	//pwd = getcwd(buff, 4096);
 	//printf("\n\t--PWD$ %s\n", pwd);
-	ft_put3str("\033[33m", "my_sh $", "\033[0m ");
+	ft_put3str("\n\033[33m", "my_sh $", "\033[0m ");
 }
 
 char	*parse_dollar(char *input, int index, t_env m_env)
@@ -71,9 +71,8 @@ char	*parser(char *input, t_env env)
 		{
 			if (input[i] == '$' && input[i + 1])
 			{
-				// ft_putstr("\n** $ **\n");
 				ret = ft_strjoin(ret, parse_dollar(input, i + 1, env));
-				while (input[i + 1]  && !isspce(input[i]) && input[i + 1] != '$')
+				while (input[i + 1]  && !isspce(input[i + 1]) && input[i + 1] != '$')
 					i++;
 			}
 			// 	else if (input[i] == '~' && ( i == 0 || (i != 0 && input[i - 1] != ' ')))
@@ -88,7 +87,6 @@ char	*parser(char *input, t_env env)
 		return (ret);
 	}
 	return(input);
-
 }
 
 void	input_handler(char **input, t_env m_env)
@@ -120,11 +118,11 @@ void	input_handler(char **input, t_env m_env)
 
 void tests(t_env m_env)
 {
-	ft_putstr("\n***ENVIRONMENT***\n\n");
-	// print_env(m_env);
-	printf("\n***GET VARS***\n\nHOME\t%s\nPWD\t%s\nPATH\t%s\n/_\t%s\n"
-			, get_var("HOME", m_env),	get_var("PWD", m_env),\
-			get_var("PATH", m_env), get_var("_", m_env));
+	print_env(m_env);
+	ft_putstr("***ENVIRONMENT***\n\n");
+	// printf("\n***GET VARS***\n\nHOME\t%s\nPWD\t%s\nPATH\t%s\n/_\t%s\n"
+	// 		, get_var("HOME", m_env),	get_var("PWD", m_env),\
+	// 		get_var("PATH", m_env), get_var("_", m_env));
 }
 
 int main(int ac, char **av, char **env)
@@ -135,17 +133,15 @@ int main(int ac, char **av, char **env)
 
 	input = NULL;
 	m_env = init_environment(ac, av, env);
-	print_env(env);
 
-	// tests(m_env);
-
+	tests(m_env);
 	while (1)
 	{
+int i = -1;
 		prompt();
 		input_handler(&input, m_env);
-		ft_put3str("\n-INPUT-\t:",input, "\n");
+		ft_put3str("-INPUT-\t:",input, "\n");
 		cmds = ft_strsplit(input, ';');
-		// ft_put3str("\n-CMDS[1]-\t:",cmds[1], "\n");
 		ft_strdel(&input);
 		if (execution(cmds, m_env) == -1)
 		 	break;
