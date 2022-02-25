@@ -121,7 +121,7 @@ void	input_handler(char **input, t_env m_env)
 void tests(t_env m_env)
 {
 	ft_putstr("\n***ENVIRONMENT***\n\n");
-	print_env(m_env);
+	// print_env(m_env);
 	printf("\n***GET VARS***\n\nHOME\t%s\nPWD\t%s\nPATH\t%s\n/_\t%s\n"
 			, get_var("HOME", m_env),	get_var("PWD", m_env),\
 			get_var("PATH", m_env), get_var("_", m_env));
@@ -135,6 +135,7 @@ int main(int ac, char **av, char **env)
 
 	input = NULL;
 	m_env = init_environment(ac, av, env);
+	print_env(env);
 
 	// tests(m_env);
 
@@ -144,9 +145,10 @@ int main(int ac, char **av, char **env)
 		input_handler(&input, m_env);
 		ft_put3str("\n-INPUT-\t:",input, "\n");
 		cmds = ft_strsplit(input, ';');
+		// ft_put3str("\n-CMDS[1]-\t:",cmds[1], "\n");
 		ft_strdel(&input);
-		// if (execution(cmds, m_env) == -1)
-		// 	break;
+		if (execution(cmds, m_env) == -1)
+		 	break;
 	}
 
 	return (0);
