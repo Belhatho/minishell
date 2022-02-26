@@ -37,18 +37,6 @@ char	*do_path(char *name, char *d_name)
 	}
 }
 
-
-int		is_first_word(char *s1, char *s2)
-{
-	int	i;
-
-	i = -1;
-	while (s2[++i])
-		if (s1[i] != s2[i])
-			return (0);
-	return (1);
-}
-
 char            *get_var(char *name, t_env m_env)
 {
    	int		i;

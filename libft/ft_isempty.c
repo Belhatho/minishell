@@ -29,3 +29,14 @@ int		ft_isempty(char *str, int consider_space)
 	return (1);
 }
 
+int		is_first_word(char *s1, char *s2)
+{
+	int	i;
+
+	i = -1;
+	while (s2[++i])
+		if (s1[i] != s2[i])
+			return (0);
+	return (1);
+}
+

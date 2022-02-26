@@ -10,44 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 # include "../inc/minishell.h"
 
-int		is_first_word(char *s1, char *s2)
-{
-	int	i;
-
-	i = -1;
-	while (s2[++i])
-		if (s1[i] != s2[i])
-			return (0);
-	return (1);
-}
-
-int		check_exec(char *path, struct stat st, char **input, t_env env)
-{
-	char	**m_env;
-
-	m_env = ft_lsttoarr(env);
-	if (st.st_mode & S_IFREG)
-	{
-		if (st.st_mode & S_IEXEC)
-			return (run(path, input, m_env));
-		else
-			ft_put3str("minishell: permision denied: ", input[0], "\n");	
-		return (1);
-	}
-	return (0);
-}
-
-int		run_cmd(char *cmd, char **input, char **m_env)
+int		run(char *cmd, char **input, char **m_env)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (pid < 0)
 	{
-		ft_put3str("my_sh: ""Fork failed to create a new process.","\n");
+		ft_put3str("my_sh: ", "Fork failed to create a new process.", "\n");
 		return (0);
 	}
 	else if (pid == 0)
@@ -60,9 +32,20 @@ int		run_cmd(char *cmd, char **input, char **m_env)
 	}
 	wait(&pid);
 	return (1);
-	
 }
 
+int		check_exec(char *path, struct stat st, char **input, t_env m_env)
+{
+	if (st.st_mode & S_IFREG)
+	{
+		if (st.st_mode & S_IEXEC)
+			return (run(path, input, m_env.vars));
+		else
+			ft_put3str("my_sh: permision denied: ", input[0], "\n");	
+		return (1);
+	}
+	return (0);
+}
 
 static int		is_bin(char **input, t_env m_env)
 {
@@ -86,13 +69,13 @@ static int		is_bin(char **input, t_env m_env)
 			if (check_exec(exc, st, input, m_env))
 			{
 				ft_strdel(&exc);	
-				free_tab(&path);
+				ft_free(&path);
 				return (1);
 			}
 		}
 		i++;
 	}
-	free_tab(&path);
+	ft_free(&path);
 	return (0);
 }
 
@@ -116,17 +99,16 @@ static int	is_builtin(char **cmd, t_env env)
 int		check_one_cmd(char **input, t_env m_env)
 {
 		int				isbuiltin;
-		// struct stat		st;
+		struct stat		st;
 
 		isbuiltin = is_builtin(input, m_env);
-		return(isbuiltin);
-		// if (isbuiltin == -1)
-		// 	return (-1);
-		// if (isbuiltin == 1 || is_bin(input, m_env))
-		// 	return (1);
-		// if (lstat(input[0], &st) != -1)
-		// 	return(check_exec(input[0], st, input, m_env));
-		// if only spaces in input!!! 
+		// return(isbuiltin);
+		if (isbuiltin == -1)
+			return (-1);
+		if (isbuiltin == 1 || is_bin(input, m_env))
+			return (1);
+		if (lstat(input[0], &st) != -1)
+			return(check_exec(input[0], st, input, m_env));
 		return (0);
 }
 
