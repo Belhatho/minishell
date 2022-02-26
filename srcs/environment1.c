@@ -14,20 +14,29 @@
 
 char	*do_path(char *name, char *d_name)
 {
-	char	*path;
 	char	*tmp;
 
-	if ((name[0] == '/' && name[1] == '\0') ||
-					name[ft_strlen(name) - 1] == '/' || d_name[0] == '/')
-		path = ft_strjoin(name, d_name);
+	if (!d_name || !name)
+		return (NULL);
+	if (!ft_strendswith(name, "/"))
+	{
+		if (d_name[0] == '/')
+			return (ft_strjoin(name, d_name));
+		else
+		{
+			tmp = ft_strjoin2(ft_strchjoin(name, '/'), d_name, 0);
+			return (tmp);
+		}
+	}
 	else
 	{
-		tmp = ft_strjoin(name, "/");
-		path = ft_strjoin(tmp, d_name);
-		ft_strdel(&tmp);
+		if (d_name[0] == '/')
+			return (ft_strjoin(name, d_name + 1));
+		else
+			return (ft_strjoin(name, d_name));
 	}
-	return (path);
 }
+
 
 int		is_first_word(char *s1, char *s2)
 {

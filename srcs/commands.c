@@ -13,36 +13,88 @@
 
 # include "../inc/minishell.h"
 
-// static int		is_bin(char **input, t_env m_env)
-// {
-// 	struct stat st;
-// 	char		**path;
-// 	char		*exc;
-// 	int			i;
+int		is_first_word(char *s1, char *s2)
+{
+	int	i;
 
-// 	i = 0;
-// 	path = ft_strsplit(get_var("PATH", m_env), ':');
-// 	while (path && path[i])
-// 	{
-// 		if (is_first_word(path[i], input[0]))
-// 			exc = ft_strdup(input[0]);
-// 		else
-// 			exc = do_path(path[i], input[0]);
-// 		if (lstat(exc, &st) != -1)
-// 		{
-// 			if (check_exec(exc, st, input, m_env))
-// 			{
-// 				ft_strdel(&exc);
-// 				free_tab(&path);
-// 				return (1);
-// 			}
-// 		}
-// 		ft_strdel(&exc);
-// 		i++;
-// 	}
-// 	free_tab(&path);
-// 	return (0);
-// }
+	i = -1;
+	while (s2[++i])
+		if (s1[i] != s2[i])
+			return (0);
+	return (1);
+}
+
+int		check_exec(char *path, struct stat st, char **input, t_env env)
+{
+	char	**m_env;
+
+	m_env = ft_lsttoarr(env);
+	if (st.st_mode & S_IFREG)
+	{
+		if (st.st_mode & S_IEXEC)
+			return (run(path, input, m_env));
+		else
+			ft_put3str("minishell: permision denied: ", input[0], "\n");	
+		return (1);
+	}
+	return (0);
+}
+
+int		run_cmd(char *cmd, char **input, char **m_env)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+	{
+		ft_put3str("my_sh: ""Fork failed to create a new process.","\n");
+		return (0);
+	}
+	else if (pid == 0)
+	{
+		if (execve(cmd, input, m_env) == -1)
+		{
+			ft_put3str("my_sh: command not found: ", input[0], "\n");
+			return (-1);
+		}
+	}
+	wait(&pid);
+	return (1);
+	
+}
+
+
+static int		is_bin(char **input, t_env m_env)
+{
+	struct stat st;
+	char		**path;
+	char		*exc;
+	int			i;
+
+	i = 0;
+	path = ft_strsplit(get_var("PATH", m_env), ':');
+	while (path && path[i])
+	{
+		if (is_first_word(path[i], input[0]))
+			exc = ft_strdup(input[0]);
+		else
+			exc = do_path(path[i], input[0]);
+		if (lstat(exc, &st) == -1)
+			ft_strdel(&exc);
+		else
+		{
+			if (check_exec(exc, st, input, m_env))
+			{
+				ft_strdel(&exc);	
+				free_tab(&path);
+				return (1);
+			}
+		}
+		i++;
+	}
+	free_tab(&path);
+	return (0);
+}
 
 static int	is_builtin(char **cmd, t_env env)
 {

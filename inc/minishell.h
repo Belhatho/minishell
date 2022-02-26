@@ -34,6 +34,8 @@ t_env	init_environment(int ac, char **av, char **env);
 char	*get_var(char *name, t_env m_env);
 int	print_env(t_env m_env);
 
+char	*do_path(char *name, char *d_name);
+
 int	execution(char **commands, t_env env);
 
 void	free_exit(t_env m_e);

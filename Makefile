@@ -20,14 +20,20 @@ SRCS = $(SRC:%=srcs/%)
 OBJS = $(SRC:%.c=objs/%.o)
 LIBFT = ./libft/ -lft
 
+BUILD_PRINT = $(GREEN_COLOR)minishell successfully compiles$(NO_COLOR)
+GREEN_COLOR=\x1b[32;01m
+
 FLAGS = -Wall# -Wextra -Weroor
 CREATE_OBJ = objs
+
+
 
 all: $(NAME)
 
 $(NAME): $(CREATE_OBJ) $(OBJS)
 	@make -C libft
 	@gcc $(FLAGS) -o $(NAME)  -I ./inc/ $(OBJS) -L $(LIBFT)
+	@echo "$(BUILD_PRINT)"
 
 $(CREATE_OBJ):
 	@mkdir -p $@

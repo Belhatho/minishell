@@ -31,8 +31,31 @@ void	prompt()
 	// char	buff[4097];
 	//pwd = getcwd(buff, 4096);
 	//printf("\n\t--PWD$ %s\n", pwd);
-	ft_put3str("\n\033[33m", "my_sh $", "\033[0m ");
+	ft_put3str("\n\033[033m", "my_sh\033[1;31m $", "\033[0m ");
 }
+
+char	*parse_home(char *path, int rev, t_env m_env)
+{
+	char	*home_path;
+	char	*ret;
+
+	if (!path)
+		return (NULL);
+	home_path = get_var("HOME", m_env);
+	if (!ft_strstartswith(path, rev ? "~" : home_path))
+		return (ft_strdup(path));
+	if (rev)
+		ret = do_path(home_path, path + 1);
+	else
+	{
+		if (*(path + ft_strlen(home_path)) == '\0')
+			ret = ft_strdup("~");
+		else
+			ret = do_path("~", path + ft_strlen(home_path));
+	}
+	return (ret);
+}
+
 
 char	*parse_dollar(char *input, int index, t_env m_env)
 {
@@ -75,11 +98,12 @@ char	*parser(char *input, t_env env)
 				while (input[i + 1]  && !isspce(input[i + 1]) && input[i + 1] != '$')
 					i++;
 			}
-			// 	else if (input[i] == '~' && ( i == 0 || (i != 0 && input[i - 1] != ' ')))
-			// 	{
-						// ft_putstr("\n** ~ **\n");
-			// 		ret = ft_strjoin2(ret, )
-			// 	}
+			else if (input[i] == '~' && ((i != 0 && isspce(input[i - 1])) || i == 0))
+			{
+				ret = ft_strjoin(ret, parse_home(input + i, 1, env));
+				i += ft_strlen(input + i) - 1;
+				printf("\nprse~ -- %s\n", ret);
+			}
 			else
 				ret = ft_strchjoin(ret, input[i]);
 		}
@@ -111,6 +135,7 @@ void	input_handler(char **input, t_env m_env)
 		free(*input);
 		free_exit(m_env);
 	}
+	
 	// ft_put3str("\nhandlerInput:\t",*input, "\n");
 	*input = parser(*input, m_env);
 
@@ -137,11 +162,15 @@ int main(int ac, char **av, char **env)
 	tests(m_env);
 	while (1)
 	{
-int i = -1;
 		prompt();
 		input_handler(&input, m_env);
 		ft_put3str("-INPUT-\t:",input, "\n");
 		cmds = ft_strsplit(input, ';');
+		if (ft_isempty(input, 1))
+		{
+			free(input);
+			continue ;
+		}
 		ft_strdel(&input);
 		if (execution(cmds, m_env) == -1)
 		 	break;
