@@ -102,7 +102,7 @@ char	*parser(char *input, t_env env)
 			{
 				ret = ft_strjoin(ret, parse_home(input + i, 1, env));
 				i += ft_strlen(input + i) - 1;
-				printf("\nprse~ -- %s\n", ret);
+				printf("\n-prse ~- %s !%s!\n", ret,input + i - 1);
 			}
 			else
 				ret = ft_strchjoin(ret, input[i]);
@@ -135,10 +135,7 @@ void	input_handler(char **input, t_env m_env)
 		free(*input);
 		free_exit(m_env);
 	}
-	
-	// ft_put3str("\nhandlerInput:\t",*input, "\n");
 	*input = parser(*input, m_env);
-
 }
 
 void tests(t_env m_env)

@@ -59,3 +59,49 @@ char            *get_var(char *name, t_env m_env)
 	}
 	return (NULL);
 }
+
+int	find_var_indx(char *var, t_env m_env)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	while (m_env.vars[++i])
+	{
+		tmp = ft_strjoinch(var, '=');
+		if (ft_strstartswith(m_env.vars[i], tmp))
+		{
+			free(tmp);
+			return (i);
+		}
+		free(tmp);
+	}
+	return (i);
+}
+
+
+void	set_env_var(char *key, char *value, t_env m_env)
+{
+	int		pos;
+	char	*tmp;
+
+	pos = find_var_index(key);
+	tmp = ft_strjoin("=", value);
+	if (m_env.vars[pos])
+	{
+		free(m_env.vars[pos]);
+		if (value)
+			m_env.vars[pos] = ft_strjoin(key, tmp);
+		else
+			m_env.vars[pos] = ft_strjoin(key, "=");
+	}
+	else
+	{
+		m_env.vars = alloc_envv(pos + 1);
+		if (value)
+			m_env.vars[pos] = ft_strjoin(key, tmp);
+		else
+			m_env.vars[pos] = ft_strjoin(key, "=");
+	}
+	free(tmp);
+}

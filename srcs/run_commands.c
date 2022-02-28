@@ -56,6 +56,7 @@ static int		is_bin(char **input, t_env m_env)
 
 	i = 0;
 	path = ft_strsplit(get_var("PATH", m_env), ':');
+	printf("--BIN--\n");
 	while (path && path[i])
 	{
 		if (is_first_word(path[i], input[0]))
@@ -64,14 +65,11 @@ static int		is_bin(char **input, t_env m_env)
 			exc = do_path(path[i], input[0]);
 		if (lstat(exc, &st) == -1)
 			ft_strdel(&exc);
-		else
+		else if (check_exec(exc, st, input, m_env))
 		{
-			if (check_exec(exc, st, input, m_env))
-			{
-				ft_strdel(&exc);	
-				ft_free(&path);
-				return (1);
-			}
+			ft_strdel(&exc);	
+			ft_free(&path);
+			return (1);
 		}
 		i++;
 	}
@@ -91,7 +89,7 @@ static int	is_builtin(char **cmd, t_env env)
 // 		return (run_unsetenv(input, m_env));
 // 	if (ft_strequ(cmd[0], "cd"))
 // 		return (run_cd(input, m_env));
-// //	if (ft_strequ(cmd[0], "echo"))
+// 	if (ft_strequ(cmd[0], "echo"))
 //		return (run_echo(input, m_env));
 	return (0);
 }
@@ -102,13 +100,12 @@ int		check_one_cmd(char **input, t_env m_env)
 		struct stat		st;
 
 		isbuiltin = is_builtin(input, m_env);
-		// return(isbuiltin);
 		if (isbuiltin == -1)
 			return (-1);
 		if (isbuiltin == 1 || is_bin(input, m_env))
 			return (1);
 		if (lstat(input[0], &st) != -1)
-			return(check_exec(input[0], st, input, m_env));
+			return(check_exec(input[0], st, input, m_env)); //check if dir
 		return (0);
 }
 
