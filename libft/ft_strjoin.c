@@ -40,35 +40,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (s);
 }
 
-// char	*ft_strjoin1(char *s1, char *s2, int tofree)
-// {
-// 	char		*frch;
-// 	int			i;
-// 	int			j;
-
-// 	i = 0;
-// 	j = 0;
-// 	if (s1 == NULL || s2 == NULL)
-// 		return (NULL);
-// 	frch = (char *)malloc(sizeof(char *) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-// 	if (!(frch))
-// 		return (NULL);
-// 	while (s1[i] != '\0')
-// 	{
-// 		frch[i] = s1[i];
-// 		i++;
-// 	}
-// 	while (s2[j] != '\0')
-// 	{
-// 		frch[i] = s2[j];
-// 		i++;
-// 		j++;
-// 	}
-// 	frch[i] = '\0';
-// 	// ft_free_join(&s1, &s2, tofree);
-// 	return (frch);
-// }
-
 char	*ft_strjoin2(char *s1, char *s2, int tofree)
 {
 

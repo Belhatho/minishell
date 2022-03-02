@@ -44,7 +44,7 @@ t_env	init_environment(int ac, char **av, char **env)
 	return (m_env);
 }
 
-char	**alloc_env(t_env m_env, int size)
+char	**realloc_env(t_env m_env, int size)
 {
 	char	**new;
 	int		i;

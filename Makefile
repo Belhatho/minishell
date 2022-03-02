@@ -12,9 +12,9 @@
 
 NAME = minishell
 
-SRC = main.c commands.c 
-SRC += builtin_unset.c builtin_echo.c builtin_cd.c builtin_setenv.c
+SRC = main.c run_commands.c 
 SRC += environment.c environment1.c parse_input.c
+SRC += run_unsetenv.c run_echo.c run_cd.c run_setenv.c
 
 SRCS = $(SRC:%=srcs/%)
 OBJS = $(SRC:%.c=objs/%.o)

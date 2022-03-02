@@ -20,7 +20,7 @@ int	isspce(char c)
 }
 void	free_exit(t_env m_env)
 {
-	// ft_free(&m_env.vars);
+	ft_free(&m_env.vars);
 	write(1, "\n", 1);
 	exit(0);
 }
@@ -140,11 +140,11 @@ void	input_handler(char **input, t_env m_env)
 
 void tests(t_env m_env)
 {
-	print_env(m_env);
-	ft_putstr("***ENVIRONMENT***\n\n");
-	// printf("\n***GET VARS***\n\nHOME\t%s\nPWD\t%s\nPATH\t%s\n/_\t%s\n"
-	// 		, get_var("HOME", m_env),	get_var("PWD", m_env),\
-	// 		get_var("PATH", m_env), get_var("_", m_env));
+	// print_env(m_env);
+	// ft_putstr("***ENVIRONMENT***\n\n");
+	printf("\n***GET VARS***\n\nHOME\t%s\nPWD\t%s\nPATH\t%s\n/_\t%s\n"
+			, get_var("HOME", m_env),	get_var("PWD", m_env),\
+			get_var("PATH", m_env), get_var("_", m_env));
 }
 
 int main(int ac, char **av, char **env)
@@ -156,9 +156,9 @@ int main(int ac, char **av, char **env)
 	input = NULL;
 	m_env = init_environment(ac, av, env);
 
-	tests(m_env);
 	while (1)
 	{
+	// tests(m_env);
 		prompt();
 		input_handler(&input, m_env);
 		ft_put3str("-INPUT-\t:",input, "\n");

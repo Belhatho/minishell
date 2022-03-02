@@ -20,9 +20,9 @@ int     run_setenv(char **input, t_env m_env)
     if (len == 1)
         print_env(m_env);
     else if (len == 2)
-        set_var(input[1], "", m_env);
+        set_env_var(input[1], "", m_env);
     else if (len == 3)
-        set_var(input[1], input[2], m_env);
+        set_env_var(input[1], input[2], m_env);
     else
         ft_putstr("setenv: Too many arguments.\n");
     return (1);

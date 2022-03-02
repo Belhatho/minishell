@@ -47,18 +47,21 @@ int		check_exec(char *path, struct stat st, char **input, t_env m_env)
 	return (0);
 }
 
-static int		is_bin(char **input, t_env m_env)
+static int	is_bin(char **input, t_env m_env)
 {
-	struct stat st;
-	char		**path;
-	char		*exc;
-	int			i;
+	struct stat	st;
+	char	**path;
+	char	*exc;
+	int	i;
 
 	i = 0;
-	path = ft_strsplit(get_var("PATH", m_env), ':');
 	printf("--BIN--\n");
+	printf("-VAR- %s\n",get_var("PATH", m_env));
+	path = ft_strsplit(get_var("PATH", m_env), ':');
+				ft_putendl("-*-*-*-");
 	while (path && path[i])
 	{
+
 		if (is_first_word(path[i], input[0]))
 			exc = ft_strdup(input[0]);
 		else
@@ -77,14 +80,15 @@ static int		is_bin(char **input, t_env m_env)
 	return (0);
 }
 
-static int	is_builtin(char **cmd, t_env env)
+static int	is_builtin(char **cmd, t_env m_env)
 {
+	printf("--BUILTIN--\n");
 	if (ft_strequ(cmd[0], "exit"))
 		return (-1);
 	else if (ft_strequ(cmd[0], "env"))
-		return (print_env(env));
-// 	if (ft_strequ(cmd[0], "setenv"))
-// 		return (run_setenv(input, m_env));
+		return (print_env(m_env));
+	if (ft_strequ(cmd[0], "setenv"))
+		return (run_setenv(cmd, m_env));
 // 	if (ft_strequ(cmd[0], "unsetenv"))
 // 		return (run_unsetenv(input, m_env));
 // 	if (ft_strequ(cmd[0], "cd"))
@@ -128,7 +132,6 @@ int	execution(char **commands, t_env env)
 		ft_free(&cmd);
 		if (ret == -1)
 			break;
-		
 	}
 	return (ret);
 }
