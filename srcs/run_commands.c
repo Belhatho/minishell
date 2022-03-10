@@ -56,12 +56,10 @@ static int	is_bin(char **input, t_env m_env)
 
 	i = 0;
 	printf("--BIN--\n");
-	printf("-VAR- %s\n",get_var("PATH", m_env));
 	path = ft_strsplit(get_var("PATH", m_env), ':');
-				ft_putendl("-*-*-*-");
+	// printf("-PATH- %s\n",get_var("PATH", m_env));
 	while (path && path[i])
 	{
-
 		if (is_first_word(path[i], input[0]))
 			exc = ft_strdup(input[0]);
 		else
@@ -133,5 +131,7 @@ int	execution(char **commands, t_env env)
 		if (ret == -1)
 			break;
 	}
+
+	printf("\n\nTST: _= %s\ng= %s\n", get_var("_", env), get_var("g", env));
 	return (ret);
 }

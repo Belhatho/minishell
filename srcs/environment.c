@@ -40,7 +40,7 @@ t_env	init_environment(int ac, char **av, char **env)
 		if (!m_env.vars[i])
 			free_exit(m_env);
 	}
-	m_env.vars[i] = 0;
+	m_env.vars[i] = NULL;
 	return (m_env);
 }
 
@@ -51,11 +51,13 @@ char	**realloc_env(t_env m_env, int size)
 
 	new = (char **)ft_memalloc(sizeof(char *) * (size + 1));
 	i = -1;
-	while (m_env.vars[++i] && i < size)
+	while (m_env.vars && m_env.vars[++i] && i < size)
 	{
 		new[i] = ft_strdup(m_env.vars[i]);
 		free(m_env.vars[i]);
 	}
+	new[size] = NULL;
 	free(m_env.vars);
+	// m_env.vars = NULL;
 	return (new);
 }

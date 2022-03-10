@@ -158,7 +158,7 @@ int main(int ac, char **av, char **env)
 
 	while (1)
 	{
-	// tests(m_env);
+	tests(m_env);
 		prompt();
 		input_handler(&input, m_env);
 		ft_put3str("-INPUT-\t:",input, "\n");

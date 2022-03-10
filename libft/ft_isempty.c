@@ -37,7 +37,6 @@ int		is_first_word(char *s1, char *s2)
 
 	if (!s1 || !s2)
 		return (0);
-		ft_putendl("IFW");
 	while (s2[++i] && s1[i])
 		if (s1[i] != s2[i])
 			return (0);

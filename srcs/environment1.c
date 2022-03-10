@@ -50,7 +50,7 @@ char            *get_var(char *name, t_env m_env)
 	while (env.vars[++i])
 	{
 		tmp = ft_strjoin(name, "=");
-		printf("LO: %s\n",tmp);
+		// printf("LO: %s\n",tmp);
 		if (is_first_word(env.vars[i], tmp))
 		{
 			ft_strdel(&tmp);
@@ -85,6 +85,7 @@ void	set_env_var(char *key, char *value, t_env m_env)
 {
 	int		pos;
 	char	*tmp;
+	int		len;
 
 	pos = find_var_index(key, m_env);
 	tmp = ft_strjoin("=", value);
@@ -98,11 +99,12 @@ void	set_env_var(char *key, char *value, t_env m_env)
 	}
 	else
 	{
-		m_env.vars = realloc_env(m_env, ft_strlen2(m_env.vars));
-		if (value)
-			m_env.vars[pos] = ft_strjoin(key, tmp);
-		else
-			m_env.vars[pos] = ft_strjoin(key, "=");
+		len = ft_strlen2(m_env.vars);
+		m_env.vars = realloc_env(m_env, len + 1);
+		// if (value)
+			m_env.vars[len] = ft_strjoin(key, tmp);
+		// else
+		// 	m_env.vars[len] = ft_strjoin(key, "=");
 		printf("SET: %s= %s\n",key, get_var(key, m_env));
 	}
 	free(tmp);
