@@ -10,7 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+# include "minishell.h"
+
+void	set_env_var(char *key, char *value, t_env *m_env)
+{
+	int		pos;
+	char	*tmp;
+
+	pos = find_var_index(key, m_env);
+	tmp = ft_strjoin("=", value);
+	if (m_env->vars[pos])
+	{
+		free(m_env->vars[pos]);
+		m_env->vars[pos] = ft_strjoin(key, tmp);
+
+	}
+	else
+	{
+		m_env->vars = realloc_env(m_env, pos + 1);
+		m_env->vars[pos] = ft_strjoin(key, tmp);
+	}
+	free(tmp);
+}
 
 int     run_setenv(char **input, t_env *m_env)
 {

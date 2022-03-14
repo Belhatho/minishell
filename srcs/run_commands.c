@@ -10,13 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+# include "minishell.h"
 
 int		run(char *cmd, char **input, char **m_env)
 {
 	pid_t	pid;
 
 	pid = fork();
+	signal(SIGINT, ft_child_signal);
 	if (pid < 0)
 	{
 		ft_put3str("my_sh: ", "Fork failed to create a new process.", "\n");
@@ -57,7 +58,6 @@ static int	is_bin(char **input, t_env *m_env)
 	i = 0;
 	printf("--BIN--\n");
 	path = ft_strsplit(get_var("PATH", m_env), ':');
-	// printf("-PATH- %s\n",get_var("PATH", m_env));
 	while (path && path[i])
 	{
 		if (is_first_word(path[i], input[0]))
@@ -132,6 +132,6 @@ int	execution(char **commands, t_env *env)
 			break;
 	}
 
-	printf("\n\nTST: _= %s\ng= %s\n", get_var("_", env), get_var("g", env));
+	// printf("\n\nTST: _= %s\ng= %s\n", get_var("_", env), get_var("g", env));
 	return (ret);
 }

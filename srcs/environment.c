@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+# include "minishell.h"
 
 int	print_env(t_env m_env)
 {

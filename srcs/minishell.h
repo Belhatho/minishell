@@ -29,16 +29,20 @@ typedef	struct s_env
 	int		last_ret; //*moha*/
 }				t_env;
 
-
+void prompt();
 t_env	init_environment(int ac, char **av, char **env);
 char	**realloc_env(t_env *m_env, int size);
 char	*get_var(char *name, t_env *m_env);
+int	find_var_index(char *var, t_env *m_env);
 int	print_env(t_env m_env);
 int run_setenv(char **input, t_env *m_env);
 void	set_env_var(char *key, char *value, t_env *m_env);
 
 
 char	*do_path(char *name, char *d_name);
+
+void	ft_signal(int sig);
+void	ft_child_signal(int sig);
 
 int	execution(char **commands, t_env *env);
 

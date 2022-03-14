@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../inc/minishell.h"
+# include "minishell.h"
 
 char	*do_path(char *name, char *d_name)
 {
@@ -37,7 +37,7 @@ char	*do_path(char *name, char *d_name)
 	}
 }
 
-char            *get_var(char *name, t_env *env)
+char	*get_var(char *name, t_env *env)
 {
    	int		i;
 	char	*tmp;
@@ -48,7 +48,6 @@ char            *get_var(char *name, t_env *env)
 	while (env->vars[++i])
 	{
 		tmp = ft_strjoin(name, "=");
-		// printf("LO: %s\n",tmp);
 		if (is_first_word(env->vars[i], tmp))
 		{
 			ft_strdel(&tmp);
@@ -73,37 +72,7 @@ int	find_var_index(char *var, t_env *m_env)
 			free(tmp);
 			return (i);
 		}
-		free(tmp);
+		ft_strdel(&tmp);
 	}
 	return (i);
-}
-
-
-void	set_env_var(char *key, char *value, t_env *m_env)
-{
-	int		pos;
-	char	*tmp;
-	int		len;
-
-	pos = find_var_index(key, m_env);
-	tmp = ft_strjoin("=", value);
-	if (m_env->vars[pos])
-	{
-		free(m_env->vars[pos]);
-		if (value)
-			m_env->vars[pos] = ft_strjoin(key, tmp);
-		else
-			m_env->vars[pos] = ft_strjoin(key, "=");
-	}
-	else
-	{
-		len = ft_strlen2(m_env->vars);
-		m_env->vars = realloc_env(m_env, len + 1);
-		// if (value)
-			m_env->vars[len] = ft_strjoin(key, tmp);
-		// else
-		// 	m_env->vars[len] = ft_strjoin(key, "=");
-		printf("SET: %s= %s\n",key, get_var(key, m_env));
-	}
-	free(tmp);
 }
