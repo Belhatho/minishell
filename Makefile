@@ -12,8 +12,8 @@
 
 NAME = minishell
 
-SRC = main.c run_commands.c signals.c
-SRC += environment.c environment1.c parse_input.c
+SRC = main.c parse_input.c signals.c run_commands.c
+SRC += environment.c environment1.c utils.c
 SRC += run_unsetenv.c run_echo.c run_cd.c run_setenv.c
 
 SRCS = $(SRC:%=srcs/%)
@@ -38,7 +38,7 @@ $(NAME): $(CREATE_OBJ) $(OBJS)
 $(CREATE_OBJ):
 	@mkdir -p $@
 
-objs/%.o: srcs/%.c minishell.h libft/libft.h
+objs/%.o: srcs/%.c srcs/minishell.h libft/libft.h
 	@gcc $(FLAGS) -c $< -o $@
 
 clean:

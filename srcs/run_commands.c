@@ -6,7 +6,7 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:19:03 by belhatho          #+#    #+#             */
-/*   Updated: 2022/02/25 04:35:12 by belhatho         ###   ########.fr       */
+/*   Updated: 2022/03/14 04:42:13 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ int		check_exec(char *path, struct stat st, char **input, t_env *m_env)
 static int	is_bin(char **input, t_env *m_env)
 {
 	struct stat	st;
-	char	**path;
-	char	*exc;
-	int	i;
+	char		**path;
+	char		*exc;
+	int			i;
 
 	i = 0;
-	printf("--BIN--\n");
+	// printf("--BIN--\n");
 	path = ft_strsplit(get_var("PATH", m_env), ':');
 	while (path && path[i])
 	{
@@ -68,7 +68,7 @@ static int	is_bin(char **input, t_env *m_env)
 			ft_strdel(&exc);
 		else if (check_exec(exc, st, input, m_env))
 		{
-			ft_strdel(&exc);	
+			ft_strdel(&exc);
 			ft_free(&path);
 			return (1);
 		}
@@ -80,44 +80,42 @@ static int	is_bin(char **input, t_env *m_env)
 
 static int	is_builtin(char **cmd, t_env *m_env)
 {
-	printf("--BUILTIN--\n");
+	// printf("--BUILTIN--\n");
 	if (ft_strequ(cmd[0], "exit"))
 		return (-1);
 	else if (ft_strequ(cmd[0], "env"))
 		return (print_env(*m_env));
 	if (ft_strequ(cmd[0], "setenv"))
 		return (run_setenv(cmd, m_env));
-// 	if (ft_strequ(cmd[0], "unsetenv"))
-// 		return (run_unsetenv(input, m_env));
-// 	if (ft_strequ(cmd[0], "cd"))
-// 		return (run_cd(input, m_env));
-// 	if (ft_strequ(cmd[0], "echo"))
-//		return (run_echo(input, m_env));
+	// 	if (ft_strequ(cmd[0], "unsetenv"))
+	// 		return (run_unsetenv(input, m_env));
+	// 	if (ft_strequ(cmd[0], "cd"))
+	// 		return (run_cd(input, m_env));
+	// 	if (ft_strequ(cmd[0], "echo"))
+	//		return (run_echo(input, m_env));
 	return (0);
 }
 
-int		check_one_cmd(char **input, t_env *m_env)
+int	check_one_cmd(char **input, t_env *m_env)
 {
-		int				isbuiltin;
-		struct stat		st;
+	int			isbuiltin;
+	struct stat	st;
 
-		isbuiltin = is_builtin(input, m_env);
-		if (isbuiltin == -1)
-			return (-1);
-		if (isbuiltin == 1 || is_bin(input, m_env))
-			return (1);
-		if (lstat(input[0], &st) != -1)
-			return(check_exec(input[0], st, input, m_env)); //check if dir
-		return (0);
+	isbuiltin = is_builtin(input, m_env);
+	if (isbuiltin == -1)
+		return (-1);
+	if (isbuiltin == 1 || is_bin(input, m_env))
+		return (1);
+	if (lstat(input[0], &st) != -1)
+		return(check_exec(input[0], st, input, m_env)); //check if dir
+	return (0);
 }
-
 
 int	execution(char **commands, t_env *env)
 {
-	int i;
-	int	ret;
+	int		i;
+	int		ret;
 	char	**cmd;
-	
 
 	i = -1;
 	while (commands && commands[++i])
