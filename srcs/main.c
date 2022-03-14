@@ -34,7 +34,7 @@ void	prompt()
 	ft_put3str("\n\033[033m", "my_sh\033[1;31m $", "\033[0m ");
 }
 
-char	*parse_home(char *path, int rev, t_env m_env)
+char	*parse_home(char *path, int rev, t_env *m_env)
 {
 	char	*home_path;
 	char	*ret;
@@ -71,7 +71,7 @@ char	*parse_dollar(char *input, int index, t_env m_env)
 		index++;
 	}
 	// ft_put2str("**KEY: ", key);
-	val = get_var(key, m_env);
+	val = get_var(key, &m_env);
 	if (!val)
 	{
 		free(key);
@@ -100,7 +100,7 @@ char	*parser(char *input, t_env env)
 			}
 			else if (input[i] == '~' && ((i != 0 && isspce(input[i - 1])) || i == 0))
 			{
-				ret = ft_strjoin(ret, parse_home(input + i, 1, env));
+				ret = ft_strjoin(ret, parse_home(input + i, 1, &env));
 				i += ft_strlen(input + i) - 1;
 				printf("\n-prse ~- %s !%s!\n", ret,input + i - 1);
 			}
@@ -143,8 +143,8 @@ void tests(t_env m_env)
 	// print_env(m_env);
 	// ft_putstr("***ENVIRONMENT***\n\n");
 	printf("\n***GET VARS***\n\nHOME\t%s\nPWD\t%s\nPATH\t%s\n/_\t%s\n"
-			, get_var("HOME", m_env),	get_var("PWD", m_env),\
-			get_var("PATH", m_env), get_var("_", m_env));
+			, get_var("HOME", &m_env),	get_var("PWD", &m_env),\
+			get_var("PATH", &m_env), get_var("_", &m_env));
 }
 
 int main(int ac, char **av, char **env)
@@ -169,7 +169,7 @@ int main(int ac, char **av, char **env)
 			continue ;
 		}
 		ft_strdel(&input);
-		if (execution(cmds, m_env) == -1)
+		if (execution(cmds, &m_env) == -1)
 		 	break;
 	}
 

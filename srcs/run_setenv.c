@@ -12,13 +12,13 @@
 
 # include "../inc/minishell.h"
 
-int     run_setenv(char **input, t_env m_env)
+int     run_setenv(char **input, t_env *m_env)
 {
     int     len;
 
     len = ft_strlen2(input);
     if (len == 1)
-        print_env(m_env);
+        print_env(*m_env);
     else if (len == 2)
         set_env_var(input[1], "", m_env);
     else if (len == 3)

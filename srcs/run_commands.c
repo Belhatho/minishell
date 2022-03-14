@@ -34,12 +34,12 @@ int		run(char *cmd, char **input, char **m_env)
 	return (1);
 }
 
-int		check_exec(char *path, struct stat st, char **input, t_env m_env)
+int		check_exec(char *path, struct stat st, char **input, t_env *m_env)
 {
 	if (st.st_mode & S_IFREG)
 	{
 		if (st.st_mode & S_IEXEC)
-			return (run(path, input, m_env.vars));
+			return (run(path, input, m_env->vars));
 		else
 			ft_put3str("my_sh: permision denied: ", input[0], "\n");	
 		return (1);
@@ -47,7 +47,7 @@ int		check_exec(char *path, struct stat st, char **input, t_env m_env)
 	return (0);
 }
 
-static int	is_bin(char **input, t_env m_env)
+static int	is_bin(char **input, t_env *m_env)
 {
 	struct stat	st;
 	char	**path;
@@ -78,13 +78,13 @@ static int	is_bin(char **input, t_env m_env)
 	return (0);
 }
 
-static int	is_builtin(char **cmd, t_env m_env)
+static int	is_builtin(char **cmd, t_env *m_env)
 {
 	printf("--BUILTIN--\n");
 	if (ft_strequ(cmd[0], "exit"))
 		return (-1);
 	else if (ft_strequ(cmd[0], "env"))
-		return (print_env(m_env));
+		return (print_env(*m_env));
 	if (ft_strequ(cmd[0], "setenv"))
 		return (run_setenv(cmd, m_env));
 // 	if (ft_strequ(cmd[0], "unsetenv"))
@@ -96,7 +96,7 @@ static int	is_builtin(char **cmd, t_env m_env)
 	return (0);
 }
 
-int		check_one_cmd(char **input, t_env m_env)
+int		check_one_cmd(char **input, t_env *m_env)
 {
 		int				isbuiltin;
 		struct stat		st;
@@ -112,7 +112,7 @@ int		check_one_cmd(char **input, t_env m_env)
 }
 
 
-int	execution(char **commands, t_env env)
+int	execution(char **commands, t_env *env)
 {
 	int i;
 	int	ret;
