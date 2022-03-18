@@ -64,7 +64,6 @@ int	main(int ac, char **av, char **env)
 
 	input = NULL;
 	m_env = init_environment(ac, av, env);
-	ft_putendl("\n\x1b[32;01m sh strating...\033[0m");
 	while (1)
 	{
 		// tests(m_env);

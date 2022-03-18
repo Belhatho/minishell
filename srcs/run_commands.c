@@ -80,7 +80,6 @@ static int	is_bin(char **input, t_env *m_env)
 
 static int	is_builtin(char **cmd, t_env *m_env)
 {
-	// printf("--BUILTIN--\n");
 	if (ft_strequ(cmd[0], "exit"))
 		return (-1);
 	else if (ft_strequ(cmd[0], "env"))

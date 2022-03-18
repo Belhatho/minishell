@@ -41,6 +41,7 @@ t_env	init_environment(int ac, char **av, char **env)
 			free_exit(m_env);
 	}
 	m_env.vars[i] = NULL;
+	ft_putendl("\n\x1b[32;01m sh strating...\033[0m");
 	return (m_env);
 }
 
