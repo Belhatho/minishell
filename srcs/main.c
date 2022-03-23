@@ -80,7 +80,7 @@ int	main(int ac, char **av, char **env)
 		ft_strdel(&input);
 		if (execution(cmds, &m_env) == -1)
 		{
-			ft_putendl("\033[1;31m sh terminated.\033[0m");
+			ft_putendl("\033[1;31m my_sh terminated.\033[0m");
 			break ;
 		}
 	}
