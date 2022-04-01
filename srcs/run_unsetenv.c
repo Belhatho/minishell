@@ -15,25 +15,41 @@
 void	unset_var(char *input, t_env *m_env)
 {
 	int pos;
+	int	i;
+	int	var_count;
 
 	pos = find_var_index(input, m_env);
-	if (!m_env->vars[pos])
-		return ;
-	
+	if (m_env->vars[pos])
+	{
+		free(m_env->vars[pos]);
+		m_env->vars[pos] = NULL;
+		i = pos;
+		var_count = pos + 1;
+		while (m_env->vars[i + 1])
+		{
+			m_env->vars[i] = ft_strdup(m_env->vars[i + 1]);
+			free(m_env->vars[i + 1]);
+			i++;
+			var_count++;
+		}
+		m_env->vars = realloc_env(m_env, var_count - 1);
+	}
 }
+
+
 
 int     run_unsetenv(char **input, t_env *m_env)
 {
-    int     len;
-    int     i;
+	int     len;
+	int     i;
 
-    i = 0;
-    if (!input[1])
-        ft_putendl("unsetenv: Too few arguments.");
-    else
-    {
-        while (input[++i])
-            unset_var(input[i], m_env);
-    }
-    return (1);
+	i = 0;
+	if (!input[1])
+		ft_putendl("unsetenv: Too few arguments.");
+	else
+	{
+		while (input[++i])
+			unset_var(input[i], m_env);
+	}
+	return (1);
 }

@@ -12,13 +12,13 @@
 
 #include "minishell.h"
 
-void	prompt(void)
+void	prompt(t_env *m_env)
 {
-	// char    *pwd;
-	// char	buff[4097];
-	//pwd = getcwd(buff, 4096);
-	//printf("\n\t--PWD$ %s\n", pwd);
-	ft_put3str("\n\x1b[32;01m", "my_sh\033[1;31m $", "\033[0m ");
+	char    *pwd;
+	char	buff[4097];
+	pwd = getcwd(buff, 4096);
+	ft_put2str("\n\033[1;31m",parse_home(pwd, 1, m_env));
+	ft_put2str("\x1b[32;01m my_sh\033[1;31m $", "\033[0m ");
 }
 
 void tests(t_env m_env)
@@ -67,7 +67,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		// tests(m_env);
-		prompt();
+		prompt(&m_env);
 		signal(SIGINT, ft_signal);
 		input_handler(&input, m_env);
 		ft_put3str("-INPUT-\t:", input, "\n");

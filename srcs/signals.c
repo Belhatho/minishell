@@ -26,7 +26,7 @@ void	ft_signal(int signo)
 	if (signo == SIGINT)
 	{
 		ft_putstr("\n");
-		prompt();
+		// prompt();
 		signal(SIGINT, ft_signal);
 	}
 }

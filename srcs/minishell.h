@@ -27,7 +27,7 @@ typedef struct s_env
 	int		last_ret; //*moha*/
 }				t_env;
 
-void	prompt(void);
+void	prompt(t_env *m);
 
 char	*parser(char *input, t_env env);
 char	*parse_home(char *path, int rev, t_env *m_env);

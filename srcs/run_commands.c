@@ -56,7 +56,6 @@ static int	is_bin(char **input, t_env *m_env)
 	int			i;
 
 	i = 0;
-	// printf("--BIN--\n");
 	path = ft_strsplit(get_var("PATH", m_env), ':');
 	while (path && path[i])
 	{
@@ -82,16 +81,16 @@ static int	is_builtin(char **cmd, t_env *m_env)
 {
 	if (ft_strequ(cmd[0], "exit"))
 		return (-1);
-	else if (ft_strequ(cmd[0], "env"))
+	if (ft_strequ(cmd[0], "env"))
 		return (print_env(*m_env));
 	if (ft_strequ(cmd[0], "setenv"))
 		return (run_setenv(cmd, m_env));
-	// 	if (ft_strequ(cmd[0], "unsetenv"))
-	// 		return (run_unsetenv(input, m_env));
-	// 	if (ft_strequ(cmd[0], "cd"))
-	// 		return (run_cd(input, m_env));
-	// 	if (ft_strequ(cmd[0], "echo"))
-	//		return (run_echo(input, m_env));
+	if (ft_strequ(cmd[0], "unsetenv"))
+		return (run_unsetenv(cmd, m_env));
+	if (ft_strequ(cmd[0], "cd"))
+		return (run_cd(cmd, m_env));
+	if (ft_strequ(cmd[0], "echo"))
+		return (run_echo(cmd + 1, m_env));
 	return (0);
 }
 
