@@ -42,10 +42,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 char	*ft_strjoin2(char *s1, char *s2, int tofree)
 {
-
 	char	*new;
 
-	if (!(new = ft_strjoin(s1, s2)))
+	new = ft_strjoin(s1, s2);
+	if (!(new))
 		return (NULL);
 	free(s1);
 	s1 = NULL;
@@ -80,7 +80,8 @@ char	*ft_strchjoinf(char *s1, char c)
 {
 	char	*new;
 
-	if (!(new = ft_strchjoin(s1, c)))
+	new = ft_strchjoin(s1, c);
+	if (!(new))
 		return (NULL);
 	free(s1);
 	s1 = NULL;

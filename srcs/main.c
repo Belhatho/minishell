@@ -6,23 +6,24 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:13:33 by belhatho          #+#    #+#             */
-/*   Updated: 2022/05/12 03:28:36 by belhatho         ###   ########.fr       */
+/*   Updated: 2022/05/12 04:06:12 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	prompt()
+void	prompt(void)
 {
-	char    *pwd;
+	char	*pwd;
 	char	buff[4097];
+
 	pwd = getcwd(buff, 4096);
 	ft_put4str("\033[1;36m", get_var("USER"), "@\033[1;34m", "my_sh");
-	if (!ft_strcmp(pwd, get_var("HOME")))
-		ft_put3str("\033[1;31m " , "~","\033[0;33m $ \033[0m");
+	if (! ft_strcmp(pwd, get_var("HOME")))
+		ft_put3str("\033[1;31m ", "~", "\033[0;33m $ \033[0m");
 	else
-		ft_put3str("\033[1;31m " ,ft_strechr(pwd, '/') + 1,\
-		"\033[0;33m $ \033[0m");
+		ft_put3str("\033[1;31m ", ft_strechr(pwd, '/') + 1, \
+			"\033[0;33m $ \033[0m");
 }
 
 void	input_handler(char **input)
@@ -39,7 +40,7 @@ void	input_handler(char **input)
 	while (nbr_oct && buf != '\n')
 	{
 		*(*input + i++) = buf;
-		*input = ft_realloc((void**)(input), c, c + 1);
+		*input = ft_realloc((void **)(input), c, c + 1);
 		c++;
 		nbr_oct = read(0, &buf, 1);
 	}

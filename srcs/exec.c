@@ -29,14 +29,14 @@ static int	is_builtin(char **cmd)
 	return (0);
 }
 
-int		check_exec(char *path, struct stat st, char **input)
+int	check_exec(char *path, struct stat st, char **input)
 {
 	if (st.st_mode & S_IFREG)
 	{
 		if (st.st_mode & S_IEXEC)
 			return (run(path, input));
 		else
-			ft_put3str("my_sh: permision denied: ", input[0], "\n");	
+			ft_put3str("my_sh: permision denied: ", input[0], "\n");
 		return (1);
 	}
 	if (st.st_mode & S_IFDIR)
@@ -76,7 +76,7 @@ static int	is_bin(char **input)
 	return (0);
 }
 
-int		check_one_cmd(char **input)
+int	check_one_cmd(char **input)
 {
 	int			isbuiltin;
 	struct stat	st;
@@ -87,6 +87,6 @@ int		check_one_cmd(char **input)
 	if (isbuiltin == 1 || is_bin(input))
 		return (1);
 	if (lstat(input[0], &st) != -1)
-		return(check_exec(input[0], st, input));
+		return (check_exec(input[0], st, input));
 	return (0);
 }

@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
@@ -20,8 +20,12 @@ char	*parse_home(char *path, int rev)
 	if (!path)
 		return (NULL);
 	home_path = get_var("HOME");
-	if (!ft_strstartswith(path, rev ? "~" : home_path))
+	if (rev && !ft_strstartswith(path, "~"))
 		return (ft_strdup(path));
+	if (!rev && !ft_strstartswith(path, home_path))
+		return (ft_strdup(path));
+	// if (!ft_strstartswith(path, rev ? "~" : home_path))
+	// 	return (ft_strdup(path));
 	if (rev)
 		ret = do_path(home_path, path + 1);
 	else
@@ -57,30 +61,30 @@ char	*parse_dollar(char *input, int index)
 	return (val);
 }
 
-char	*parser(char *input)
+char	*parser(char *in)
 {
 	int		i;
 	char	*ret;
 
 	i = -1;
 	ret = ft_strnew(0);
-	if ((ft_strchr(input, '$') != NULL) || (ft_strchr(input, '~') != NULL))
+	if ((ft_strchr(in, '$') != NULL) || (ft_strchr(in, '~') != NULL))
 	{
-		while (input[++i])
+		while (in[++i])
 		{
-			if (input[i] == '$' && input[i + 1])
+			if (in[i] == '$' && in[i + 1])
 			{
-				ret = ft_strjoin(ret, parse_dollar(input, i + 1));
-				while (input[i + 1] && !isspce(input[i + 1]) && input[i + 1] != '$')
+				ret = ft_strjoin(ret, parse_dollar(in, i + 1));
+				while (in[i + 1] && !isspce(in[i + 1]) && in[i + 1] != '$')
 					i++;
 			}
-			else if (input[i] == '~' && ((i != 0 && isspce(input[i - 1])) || i == 0))
-				ret = do_path(ret, ft_strchjoin(get_var("HOME"),'/'));
+			else if (in[i] == '~' && ((i != 0 && isspce(in[i - 1])) || i == 0))
+				ret = do_path(ret, ft_strchjoin(get_var("HOME"), '/'));
 			else
-				ret = ft_strchjoin(ret, input[i]);
+				ret = ft_strchjoin(ret, in[i]);
 		}
-		free(input);
+		free(in);
 		return (ret);
 	}
-	return (input);
+	return (in);
 }

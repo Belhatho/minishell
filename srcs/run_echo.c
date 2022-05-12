@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 static int	check_flag(char *arg, int n)
 {
@@ -35,9 +35,12 @@ int	run_echo(char **input)
 
 	i = 0;
 	n = 0;
-	while (input[i] && ft_strequ(input[i], "-n") &&\
-	check_flag(input[i], 'n') && (n = 1))
+	while (input[i] && ft_strequ(input[i], "-n") && \
+	check_flag(input[i], 'n'))
+	{
+		(n = 1);
 		i++;
+	}
 	while (input[i])
 	{
 		ft_putstr(input[i]);

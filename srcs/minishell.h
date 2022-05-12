@@ -19,19 +19,15 @@
 # include <signal.h>
 # include "../libft/libft.h"
 
-# include<stdio.h>
+char	**g_env;
 
-	char	**m_env;
-
-
-
-void	prompt();
+void	prompt(void);
 
 char	*parser(char *input);
 char	*parse_home(char *path, int rev);
 char	*do_path(char *name, char *d_name);
 
-int		print_env();
+int		print_env(void);
 void	init_environment(int ac, char **av, char **env);
 char	**realloc_env(int size);
 
@@ -50,7 +46,6 @@ int		find_var_index(char *var);
 
 void	ft_signal(int sig);
 void	ft_child_signal(int sig);
-
 
 int		isspce(char c);
 void	free_exit(void);

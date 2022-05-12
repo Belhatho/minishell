@@ -10,35 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-int	print_env()
+int	print_env(void)
 {
 	int	i;
 
 	i = -1;
-	if (!m_env || !m_env[0])
+	if (!g_env || !g_env[0])
 		return (0);
-	while (m_env && m_env[++i])
-		ft_putendl(m_env[i]);
+	while (g_env && g_env[++i])
+		ft_putendl(g_env[i]);
 	return (1);
 }
 
 void	init_environment(int ac, char **av, char **env)
 {
-	int i;
+	int	i;
 
 	(void)ac;
 	(void)av;
 	i = -1;
-	m_env = (char**)ft_memalloc(sizeof(char*) * (ft_strlen2(env) + 1));
+	g_env = (char **)ft_memalloc(sizeof(char *) * (ft_strlen2(env) + 1));
 	while (env[++i])
 	{
-		m_env[i] = ft_strdup(env[i]);
-		if (!m_env[i])
+		g_env[i] = ft_strdup(env[i]);
+		if (!g_env[i])
 			free_exit();
 	}
-	m_env[i] = NULL;
+	g_env[i] = NULL;
 	ft_putendl("\033[0;33m my_sh strating ...\033[0m");
 }
 
@@ -49,13 +49,13 @@ char	**realloc_env(int size)
 
 	new = (char **)ft_memalloc(sizeof(char *) * (size + 1));
 	i = -1;
-	while (m_env && m_env[++i] && i < size)
+	while (g_env && g_env[++i] && i < size)
 	{
-		new[i] = ft_strdup(m_env[i]);
-		free(m_env[i]);
+		new[i] = ft_strdup(g_env[i]);
+		free(g_env[i]);
 	}
 	new[size] = NULL;
-	free(m_env);
-	m_env = NULL;
+	free(g_env);
+	g_env = NULL;
 	return (new);
 }

@@ -12,35 +12,33 @@
 
 #include "minishell.h"
 
-void	unset_var(char *input)
+static void	unset_var(char *input)
 {
-	int pos;
+	int	pos;
 	int	i;
 	int	var_count;
 
 	pos = find_var_index(input);
-	if (m_env[pos])
+	if (g_env[pos])
 	{
-		free(m_env[pos]);
-		m_env[pos] = NULL;
+		free(g_env[pos]);
+		g_env[pos] = NULL;
 		i = pos;
 		var_count = pos + 1;
-		while (m_env[i + 1])
+		while (g_env[i + 1])
 		{
-			m_env[i] = ft_strdup(m_env[i + 1]);
-			free(m_env[i + 1]);
+			g_env[i] = ft_strdup(g_env[i + 1]);
+			free(g_env[i + 1]);
 			i++;
 			var_count++;
 		}
-		m_env = realloc_env(var_count - 1);
+		g_env = realloc_env(var_count - 1);
 	}
 }
 
-
-
-int     run_unsetenv(char **input)
+int	run_unsetenv(char **input)
 {
-	int     i;
+	int	i;
 
 	i = 0;
 	if (!input[1])

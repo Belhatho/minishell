@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-int		run(char *cmd, char **input)
+int	run(char *cmd, char **input)
 {
 	pid_t	pid;
 
@@ -25,7 +25,7 @@ int		run(char *cmd, char **input)
 	}
 	else if (pid == 0)
 	{
-		if (execve(cmd, input, m_env) == -1)
+		if (execve(cmd, input, g_env) == -1)
 		{
 			ft_put3str("my_sh: command not found: ", input[0], "\n");
 			return (-1);
@@ -50,7 +50,7 @@ int	execution(char **commands)
 			ft_put4str("my_sh: ", "command not found: ", cmd[0], "\n");
 		ft_free(&cmd);
 		if (ret == -1)
-			break;
+			break ;
 	}
 	return (ret);
 }
