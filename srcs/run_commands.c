@@ -118,7 +118,6 @@ int	execution(char **commands)
 	i = -1;
 	while (commands && commands[++i])
 	{
-		printf("\n***CMDS[%d]: %s ***\n",i,commands[i]);
 		cmd = ft_strsplits(commands[i]);
 		ret = check_one_cmd(cmd);
 		if (!ret)
@@ -127,7 +126,5 @@ int	execution(char **commands)
 		if (ret == -1)
 			break;
 	}
-
-	// printf("\n\nTST: _= %s\ng= %s\n", get_var("_", env), get_var("g", env));
 	return (ret);
 }

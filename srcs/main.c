@@ -17,8 +17,9 @@ void	prompt()
 	char    *pwd;
 	char	buff[4097];
 	pwd = getcwd(buff, 4096);
-	ft_put2str("\n\033[1;31m", ft_strechr(pwd, '/') + 1);
-	ft_put2str("\x1b[32;01m my_sh\x1b[33;01m:$", "\033[0m ");
+	ft_put2str("\n\033[1;36m", get_var("USER"));
+	ft_put2str("@\033[1;34m", ft_strechr(pwd, '/') + 1);
+	ft_put2str("\033[1;31m my_sh\033[0;33m:$", "\033[0m ");
 }
 
 void tests(char** m_env)
@@ -69,7 +70,7 @@ int	main(int ac, char **av, char **env)
 		prompt();
 		signal(SIGINT, ft_signal);
 		input_handler(&input);
-		ft_put3str("-INPUT-\t:", input, "\n");
+		// ft_put3str("-INPUT-\t:", input, "\n");
 		if (ft_isempty(input, 1))
 		{
 			free(input);
