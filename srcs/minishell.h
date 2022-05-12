@@ -47,6 +47,7 @@ int		find_var_index(char *var);
 void	ft_signal(int sig);
 void	ft_child_signal(int sig);
 
+char	*strreplace(char *haystack, char *needle, char *str);
 int		isspce(char c);
 void	free_exit(void);
 

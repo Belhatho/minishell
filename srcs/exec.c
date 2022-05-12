@@ -39,7 +39,7 @@ int	check_exec(char *path, struct stat st, char **input)
 			ft_put3str("my_sh: permision denied: ", input[0], "\n");
 		return (1);
 	}
-	if (st.st_mode & S_IFDIR)
+	if (st.st_mode & S_IFDIR && ft_strlen2(input) == 1)
 	{
 		ft_chdir(input[0], 0);
 		return (1);
