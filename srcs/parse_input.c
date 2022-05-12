@@ -75,11 +75,7 @@ char	*parser(char *input)
 					i++;
 			}
 			else if (input[i] == '~' && ((i != 0 && isspce(input[i - 1])) || i == 0))
-			{
-				ret = ft_strjoin(ret, parse_home(input + i, 1));
-				i += ft_strlen(input + i) - 1;
-				// printf("\n-prse ~- %s !%s!\n", ret, input + i - 1);
-			}
+				ret = do_path(ret, ft_strchjoin(get_var("HOME"),'/'));
 			else
 				ret = ft_strchjoin(ret, input[i]);
 		}

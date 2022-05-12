@@ -39,5 +39,5 @@ char	*ft_strechr(const char *s, int c)
 			i--;
 		}
 	}
-	return (NULL);
+	return ((char *)s);
 }

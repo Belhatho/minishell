@@ -13,7 +13,7 @@
 NAME = minishell
 
 SRC = main.c parse_input.c signals.c run_commands.c
-SRC += environment.c environment1.c utils.c
+SRC += environment.c environment1.c exec.c utils.c
 SRC += run_unsetenv.c run_echo.c run_cd.c run_setenv.c
 
 SRCS = $(SRC:%=srcs/%)
@@ -23,7 +23,7 @@ LIBFT = ./libft/ -lft
 BUILD_PRINT = $(GREEN_COLOR)minishell successfully compiles$(NO_COLOR)
 GREEN_COLOR=\x1b[32;01m
 
-FLAGS = -Wall# -Wextra -Weroor
+FLAGS = -Wall -Wextra -Werror
 CREATE_OBJ = objs
 
 

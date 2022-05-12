@@ -6,7 +6,7 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:13:33 by belhatho          #+#    #+#             */
-/*   Updated: 2022/02/24 04:58:34 by belhatho         ###   ########.fr       */
+/*   Updated: 2022/05/12 03:28:36 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,12 @@ void	prompt()
 	char    *pwd;
 	char	buff[4097];
 	pwd = getcwd(buff, 4096);
-	ft_put2str("\n\033[1;36m", get_var("USER"));
-	ft_put2str("@\033[1;34m", ft_strechr(pwd, '/') + 1);
-	ft_put2str("\033[1;31m my_sh\033[0;33m:$", "\033[0m ");
-}
-
-void tests(char** m_env)
-{
-	// print_env(m_env);
-	// ft_putstr("***ENVIRONMENT***\n\n");
-	printf("\n***GET VARS***\n\nHOME\t%s\nPWD\t%s\nPATH\t%s\n/_\t%s\n", 
-	get_var("HOME"), get_var("PWD"), get_var("PATH"), get_var("_"));
+	ft_put4str("\033[1;36m", get_var("USER"), "@\033[1;34m", "my_sh");
+	if (!ft_strcmp(pwd, get_var("HOME")))
+		ft_put3str("\033[1;31m " , "~","\033[0;33m $ \033[0m");
+	else
+		ft_put3str("\033[1;31m " ,ft_strechr(pwd, '/') + 1,\
+		"\033[0;33m $ \033[0m");
 }
 
 void	input_handler(char **input)
@@ -44,7 +39,7 @@ void	input_handler(char **input)
 	while (nbr_oct && buf != '\n')
 	{
 		*(*input + i++) = buf;
-		*input = ft_realloc(input, c, c + 1);
+		*input = ft_realloc((void**)(input), c, c + 1);
 		c++;
 		nbr_oct = read(0, &buf, 1);
 	}
@@ -66,9 +61,8 @@ int	main(int ac, char **av, char **env)
 	init_environment(ac, av, env);
 	while (1)
 	{
-		// tests(m_env);
 		prompt();
-		signal(SIGINT, ft_signal);
+		// signal(SIGINT, ft_signal);
 		input_handler(&input);
 		// ft_put3str("-INPUT-\t:", input, "\n");
 		if (ft_isempty(input, 1))
@@ -80,7 +74,7 @@ int	main(int ac, char **av, char **env)
 		ft_strdel(&input);
 		if (execution(cmds) == -1)
 		{
-			ft_putendl("\033[1;31m my_sh terminated.\033[0m");
+			ft_putendl("\033[0;31m my_sh terminated.\033[0m");
 			break ;
 		}
 	}

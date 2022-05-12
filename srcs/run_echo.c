@@ -28,7 +28,7 @@ static int	check_flag(char *arg, int n)
 	return (1);
 }
 
-int	run_echo(char **input, char** *m_env)
+int	run_echo(char **input)
 {
 	int	i;
 	int	n;

@@ -39,7 +39,7 @@ void	init_environment(int ac, char **av, char **env)
 			free_exit();
 	}
 	m_env[i] = NULL;
-	ft_putendl("\n\x1b[32;01m my_sh strating...\033[0m");
+	ft_putendl("\033[0;33m my_sh strating ...\033[0m");
 }
 
 char	**realloc_env(int size)
