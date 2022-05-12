@@ -19,9 +19,9 @@ int	isspce(char c)
 	return (0);
 }
 
-void	free_exit(t_env m_env)
+void	free_exit()
 {
-	ft_free(&m_env.vars);
+	ft_free(&m_env);
 	write(1, "\n", 1);
 	exit(0);
 }

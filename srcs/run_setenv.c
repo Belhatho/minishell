@@ -12,28 +12,28 @@
 
 # include "minishell.h"
 
-void	set_env_var(char *key, char *value, t_env *m_env)
+void	set_env_var(char *key, char *value)
 {
 	int		pos;
 	char	*tmp;
 
-	pos = find_var_index(key, m_env);
+	pos = find_var_index(key);
 	tmp = ft_strjoin("=", value);
-	if (m_env->vars[pos])
+	if (m_env[pos])
 	{
-		free(m_env->vars[pos]);
-		m_env->vars[pos] = ft_strjoin(key, tmp);
+		free(m_env[pos]);
+		m_env[pos] = ft_strjoin(key, tmp);
 
 	}
 	else
 	{
-		m_env->vars = realloc_env(m_env, pos + 1);
-		m_env->vars[pos] = ft_strjoin(key, tmp);
+		m_env = realloc_env(pos + 1);
+		m_env[pos] = ft_strjoin(key, tmp);
 	}
 	free(tmp);
 }
 
-int     run_setenv(char **input, t_env *m_env)
+int     run_setenv(char **input)
 {
     int     len;
 
@@ -41,9 +41,9 @@ int     run_setenv(char **input, t_env *m_env)
     if (len == 1)
         print_env(*m_env);
     else if (len == 2)
-        set_env_var(input[1], "", m_env);
+        set_env_var(input[1], "");
     else if (len == 3)
-        set_env_var(input[1], input[2], m_env);
+        set_env_var(input[1], input[2]);
     else
         ft_putstr("setenv: Too many arguments.\n");
     return (1);

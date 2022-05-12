@@ -12,24 +12,24 @@
 
 #include "minishell.h"
 
-void	prompt(t_env *m_env)
+void	prompt()
 {
 	char    *pwd;
 	char	buff[4097];
 	pwd = getcwd(buff, 4096);
-	ft_put2str("\n\033[1;31m",parse_home(pwd, 1, m_env));
-	ft_put2str("\x1b[32;01m my_sh\033[1;31m $", "\033[0m ");
+	ft_put2str("\n\033[1;31m", ft_strechr(pwd, '/') + 1);
+	ft_put2str("\x1b[32;01m my_sh\x1b[33;01m:$", "\033[0m ");
 }
 
-void tests(t_env m_env)
+void tests(char** m_env)
 {
 	// print_env(m_env);
 	// ft_putstr("***ENVIRONMENT***\n\n");
-	printf("\n***GET VARS***\n\nHOME\t%s\nPWD\t%s\nPATH\t%s\n/_\t%s\n", get_var("HOME", &m_env), get_var("PWD", &m_env),
-		   get_var("PATH", &m_env), get_var("_", &m_env));
+	printf("\n***GET VARS***\n\nHOME\t%s\nPWD\t%s\nPATH\t%s\n/_\t%s\n", 
+	get_var("HOME"), get_var("PWD"), get_var("PATH"), get_var("_"));
 }
 
-void	input_handler(char **input, t_env m_env)
+void	input_handler(char **input)
 {
 	int		nbr_oct;
 	char	buf;
@@ -51,25 +51,24 @@ void	input_handler(char **input, t_env m_env)
 	if (!nbr_oct)
 	{
 		free(*input);
-		free_exit(m_env);
+		free_exit();
 	}
-	*input = parser(*input, m_env);
+	*input = parser(*input);
 }
 
 int	main(int ac, char **av, char **env)
 {
-	t_env	m_env;
 	char	*input;
 	char	**cmds;
 
 	input = NULL;
-	m_env = init_environment(ac, av, env);
+	init_environment(ac, av, env);
 	while (1)
 	{
 		// tests(m_env);
-		prompt(&m_env);
+		prompt();
 		signal(SIGINT, ft_signal);
-		input_handler(&input, m_env);
+		input_handler(&input);
 		ft_put3str("-INPUT-\t:", input, "\n");
 		if (ft_isempty(input, 1))
 		{
@@ -78,7 +77,7 @@ int	main(int ac, char **av, char **env)
 		}
 		cmds = ft_strsplit(input, ';');
 		ft_strdel(&input);
-		if (execution(cmds, &m_env) == -1)
+		if (execution(cmds) == -1)
 		{
 			ft_putendl("\033[1;31m my_sh terminated.\033[0m");
 			break ;

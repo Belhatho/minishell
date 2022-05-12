@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void			ft_chdir(char *path, int print, t_env *m_env)
+void			ft_chdir(char *path, int print)
 {
 	char	*cwd;
 	char	buff[4097];
@@ -21,8 +21,8 @@ void			ft_chdir(char *path, int print, t_env *m_env)
 	if (!chdir(path))
 	{
 		if (print)
-			ft_putendl(parse_home(path, 0, m_env));
-		set_env_var("OLDPWD", cwd, m_env);
+			ft_putendl(parse_home(path, 0));
+		set_env_var("OLDPWD", cwd);
 	}
 	else
 	{
@@ -57,7 +57,7 @@ char	*strreplace(char *haystack, char *needle, char *str)
 }
 
 
-static int		has_two_args(char **args, t_env *m_env)
+static int		has_two_args(char **args)
 {
 	char	*cwd;
 	char	buff[4096 + 1];
@@ -78,35 +78,35 @@ static int		has_two_args(char **args, t_env *m_env)
 			free(tmp);
 			return (1);
 		}
-		ft_chdir(tmp, 1, m_env);
+		ft_chdir(tmp, 1);
 		free(tmp);
 		return (1);
 	}
 	return (0);
 }
 
-int				run_cd(char **input, t_env *m_env)
+int				run_cd(char **input)
 {
 	char	*home;
 
-	home = get_var("HOME", m_env);
+	home = get_var("HOME");
 	if (!input[1])
 	{
-		ft_chdir(home, 0, m_env);
+		ft_chdir(home, 0);
 		return (1);
 	}
-	if (has_two_args(input, m_env))
+	if (has_two_args(input))
 		return (1);
 	if (ft_strequ(input[1], "--"))
 	{
-		ft_chdir(home, 0, m_env);
+		ft_chdir(home, 0);
 		return (1);
 	}
 	else if (input[1][0] == '-' && !input[0][2])
 	{
-		ft_chdir(get_var("OLDPWD", m_env), 1, m_env);
+		ft_chdir(get_var("OLDPWD"), 1);
 		return (1);
 	}
-	ft_chdir(input[1], 0, m_env);
+	ft_chdir(input[1], 0);
 	return (1);
 }

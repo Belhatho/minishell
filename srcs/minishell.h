@@ -21,33 +21,32 @@
 
 # include<stdio.h>
 
-typedef struct s_env
-{
-	char	**vars;
-	int		last_ret; //*moha*/
-}				t_env;
+	char	**m_env;
 
-void	prompt(t_env *m);
 
-char	*parser(char *input, t_env env);
-char	*parse_home(char *path, int rev, t_env *m_env);
 
-t_env	init_environment(int ac, char **av, char **env);
-char	**realloc_env(t_env *m_env, int size);
-char	*get_var(char *name, t_env *m_env);
-int		find_var_index(char *var, t_env *m_env);
-int		print_env(t_env m_env);
-int		run_setenv(char **input, t_env *m_env);
-void	set_env_var(char *key, char *value, t_env *m_env);
+void	prompt();
+
+char	*parser(char *input);
+char	*parse_home(char *path, int rev);
+
+void	init_environment(int ac, char **av, char **env);
+char	**realloc_env(int size);
+char	*get_var(char *name);
+int		find_var_index(char *var);
+int		print_env();
+int		run_setenv(char **input);
+int		run_unsetenv(char **input);
+void	set_env_var(char *key, char *value);
 
 char	*do_path(char *name, char *d_name);
 
 void	ft_signal(int sig);
 void	ft_child_signal(int sig);
 
-int		execution(char **commands, t_env *env);
+int		execution(char **commands);
 
 int		isspce(char c);
-void	free_exit(t_env m_e);
+void	free_exit(void);
 
 #endif

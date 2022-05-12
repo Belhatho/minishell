@@ -37,37 +37,37 @@ char	*do_path(char *name, char *d_name)
 	}
 }
 
-char	*get_var(char *name, t_env *env)
+char	*get_var(char *name)
 {
    	int		i;
 	char	*tmp;
 
 	i = -1;
-	if (!env->vars || !name)
+	if (!m_env || !name)
 		return (NULL);
-	while (env->vars[++i])
+	while (m_env[++i])
 	{
 		tmp = ft_strjoin(name, "=");
-		if (is_first_word(env->vars[i], tmp))
+		if (is_first_word(m_env[i], tmp))
 		{
 			ft_strdel(&tmp);
-			return (ft_strchr(env->vars[i], '=') + 1);
+			return (ft_strchr(m_env[i], '=') + 1);
 		}
 		ft_strdel(&tmp);
 	}
 	return (NULL);
 }
 
-int	find_var_index(char *var, t_env *m_env)
+int	find_var_index(char *var)
 {
 	int		i;
 	char	*tmp;
 
 	i = -1;
-	while (m_env->vars[++i])
+	while (m_env[++i])
 	{
 		tmp = ft_strchjoin(var, '=');
-		if (ft_strstartswith(m_env->vars[i], tmp))
+		if (ft_strstartswith(m_env[i], tmp))
 		{
 			free(tmp);
 			return (i);

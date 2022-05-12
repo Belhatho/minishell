@@ -12,14 +12,14 @@
 
 #include"minishell.h"
 
-char	*parse_home(char *path, int rev, t_env *m_env)
+char	*parse_home(char *path, int rev)
 {
 	char	*home_path;
 	char	*ret;
 
 	if (!path)
 		return (NULL);
-	home_path = get_var("HOME", m_env);
+	home_path = get_var("HOME");
 	if (!ft_strstartswith(path, rev ? "~" : home_path))
 		return (ft_strdup(path));
 	if (rev)
@@ -34,7 +34,7 @@ char	*parse_home(char *path, int rev, t_env *m_env)
 	return (ret);
 }
 
-char	*parse_dollar(char *input, int index, t_env m_env)
+char	*parse_dollar(char *input, int index)
 {
 	char	*key;
 	char	*val;
@@ -47,7 +47,7 @@ char	*parse_dollar(char *input, int index, t_env m_env)
 		key = ft_strchjoinf(key, c);
 		index++;
 	}
-	val = get_var(key, &m_env);
+	val = get_var(key);
 	if (!val)
 	{
 		free(key);
@@ -57,7 +57,7 @@ char	*parse_dollar(char *input, int index, t_env m_env)
 	return (val);
 }
 
-char	*parser(char *input, t_env env)
+char	*parser(char *input)
 {
 	int		i;
 	char	*ret;
@@ -70,13 +70,13 @@ char	*parser(char *input, t_env env)
 		{
 			if (input[i] == '$' && input[i + 1])
 			{
-				ret = ft_strjoin(ret, parse_dollar(input, i + 1, env));
+				ret = ft_strjoin(ret, parse_dollar(input, i + 1));
 				while (input[i + 1] && !isspce(input[i + 1]) && input[i + 1] != '$')
 					i++;
 			}
 			else if (input[i] == '~' && ((i != 0 && isspce(input[i - 1])) || i == 0))
 			{
-				ret = ft_strjoin(ret, parse_home(input + i, 1, &env));
+				ret = ft_strjoin(ret, parse_home(input + i, 1));
 				i += ft_strlen(input + i) - 1;
 				// printf("\n-prse ~- %s !%s!\n", ret, input + i - 1);
 			}

@@ -12,7 +12,7 @@
 
 # include "minishell.h"
 
-int		run(char *cmd, char **input, char **m_env)
+int		run(char *cmd, char **input)
 {
 	pid_t	pid;
 
@@ -35,12 +35,12 @@ int		run(char *cmd, char **input, char **m_env)
 	return (1);
 }
 
-int		check_exec(char *path, struct stat st, char **input, t_env *m_env)
+int		check_exec(char *path, struct stat st, char **input)
 {
 	if (st.st_mode & S_IFREG)
 	{
 		if (st.st_mode & S_IEXEC)
-			return (run(path, input, m_env->vars));
+			return (run(path, input));
 		else
 			ft_put3str("my_sh: permision denied: ", input[0], "\n");	
 		return (1);
@@ -48,7 +48,7 @@ int		check_exec(char *path, struct stat st, char **input, t_env *m_env)
 	return (0);
 }
 
-static int	is_bin(char **input, t_env *m_env)
+static int	is_bin(char **input)
 {
 	struct stat	st;
 	char		**path;
@@ -56,7 +56,7 @@ static int	is_bin(char **input, t_env *m_env)
 	int			i;
 
 	i = 0;
-	path = ft_strsplit(get_var("PATH", m_env), ':');
+	path = ft_strsplit(get_var("PATH"), ':');
 	while (path && path[i])
 	{
 		if (is_first_word(path[i], input[0]))
@@ -65,7 +65,7 @@ static int	is_bin(char **input, t_env *m_env)
 			exc = do_path(path[i], input[0]);
 		if (lstat(exc, &st) == -1)
 			ft_strdel(&exc);
-		else if (check_exec(exc, st, input, m_env))
+		else if (check_exec(exc, st, input))
 		{
 			ft_strdel(&exc);
 			ft_free(&path);
@@ -77,39 +77,39 @@ static int	is_bin(char **input, t_env *m_env)
 	return (0);
 }
 
-static int	is_builtin(char **cmd, t_env *m_env)
+static int	is_builtin(char **cmd)
 {
 	if (ft_strequ(cmd[0], "exit"))
 		return (-1);
 	if (ft_strequ(cmd[0], "env"))
-		return (print_env(*m_env));
+		return (print_env());
 	if (ft_strequ(cmd[0], "setenv"))
-		return (run_setenv(cmd, m_env));
+		return (run_setenv(cmd));
 	if (ft_strequ(cmd[0], "unsetenv"))
-		return (run_unsetenv(cmd, m_env));
+		return (run_unsetenv(cmd));
 	if (ft_strequ(cmd[0], "cd"))
-		return (run_cd(cmd, m_env));
+		return (run_cd(cmd));
 	if (ft_strequ(cmd[0], "echo"))
-		return (run_echo(cmd + 1, m_env));
+		return (run_echo(cmd + 1));
 	return (0);
 }
 
-int	check_one_cmd(char **input, t_env *m_env)
+int	check_one_cmd(char **input)
 {
 	int			isbuiltin;
 	struct stat	st;
 
-	isbuiltin = is_builtin(input, m_env);
+	isbuiltin = is_builtin(input);
 	if (isbuiltin == -1)
 		return (-1);
-	if (isbuiltin == 1 || is_bin(input, m_env))
+	if (isbuiltin == 1 || is_bin(input))
 		return (1);
 	if (lstat(input[0], &st) != -1)
-		return(check_exec(input[0], st, input, m_env)); //check if dir
+		return(check_exec(input[0], st, input)); //check if dir
 	return (0);
 }
 
-int	execution(char **commands, t_env *env)
+int	execution(char **commands)
 {
 	int		i;
 	int		ret;
@@ -120,7 +120,7 @@ int	execution(char **commands, t_env *env)
 	{
 		printf("\n***CMDS[%d]: %s ***\n",i,commands[i]);
 		cmd = ft_strsplits(commands[i]);
-		ret = check_one_cmd(cmd, env);
+		ret = check_one_cmd(cmd);
 		if (!ret)
 			ft_put3str("my_sh: ", "command not found: ", cmd[0]);
 		ft_free(&cmd);
