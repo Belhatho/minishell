@@ -56,6 +56,8 @@ static int	is_bin(char **input)
 
 	i = 0;
 	path = ft_strsplit(get_var("PATH"), ':');
+	ft_putendl("lop\n");
+	********************************* segfault unsetenv path!!!
 	while (path && path[i])
 	{
 		if (is_first_word(path[i], input[0]))
