@@ -29,7 +29,8 @@ void	set_env_var(char *key, char *value)
 		g_env = realloc_env(pos + 1);
 		g_env[pos] = ft_strjoin(key, tmp);
 	}
-	free(tmp);
+	if (value)
+		free(tmp);
 }
 
 int	run_setenv(char **input)

@@ -19,7 +19,9 @@ void	prompt(void)
 
 	pwd = getcwd(buff, 4096);
 	ft_put4str("\033[1;36m", get_var("USER"), "@\033[1;34m", "my_sh");
-	if (! ft_strcmp(pwd, get_var("HOME")))
+	if (!pwd)
+		ft_put3str("\033[1;31m ", "?", "\033[0;33m $ \033[0m");
+	else if (!ft_strcmp(pwd, get_var("HOME")))
 		ft_put3str("\033[1;31m ", "~", "\033[0;33m $ \033[0m");
 	else
 		ft_put3str("\033[1;31m ", ft_strechr(pwd, '/') + 1, \
@@ -63,9 +65,8 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		prompt();
-		// signal(SIGINT, ft_signal);
+		signal(SIGINT, ft_signal);
 		input_handler(&input);
-		// ft_put3str("-INPUT-\t:", input, "\n");
 		if (ft_isempty(input, 1))
 		{
 			free(input);

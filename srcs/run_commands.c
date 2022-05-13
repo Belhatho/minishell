@@ -17,7 +17,7 @@ int	run(char *cmd, char **input)
 	pid_t	pid;
 
 	pid = fork();
-	// signal(SIGINT, ft_child_signal);
+	signal(SIGINT, ft_child_signal);
 	if (pid < 0)
 	{
 		ft_put3str("my_sh: ", "Fork failed to create a new process.", "\n");
