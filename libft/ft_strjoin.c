@@ -22,9 +22,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (s1 == NULL && s2 == NULL)
 		return (NULL);
 	if (s1 == NULL)
-		return ((char *)s2);
+		return (ft_strdup(s2));
 	if (s2 == NULL)
-		return ((char *)s1);
+		return (ft_strdup(s1));
 	size = ft_strlen(s1) + ft_strlen(s2);
 	s = (char *)malloc(size + 1);
 	if (s == NULL)
@@ -49,7 +49,7 @@ char	*ft_strjoin2(char *s1, char *s2, int tofree)
 		return (NULL);
 	free(s1);
 	s1 = NULL;
-	if (tofree)
+	if (tofree && s2)
 	{
 		free(s2);
 		s2 = NULL;
@@ -63,8 +63,8 @@ char	*ft_strchjoin(const char *s1, char c)
 	size_t	i;
 	size_t	s1_len;
 
-	if (!s1 || !c)
-		return (NULL);
+	if (!c)
+		return (ft_strdup(s1));
 	s1_len = ft_strlen(s1);
 	new_str = ft_strnew(s1_len + 1);
 	if (!new_str)
@@ -73,6 +73,7 @@ char	*ft_strchjoin(const char *s1, char c)
 	while (++i < s1_len)
 		*(new_str + i) = *(s1 + i);
 	*(new_str + i) = c;
+	*(new_str + i + 1) = '\0';
 	return (new_str);
 }
 

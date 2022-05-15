@@ -23,7 +23,7 @@ LIBFT = ./libft/ -lft
 BUILD_PRINT = $(GREEN_COLOR)minishell successfully compiles$(NO_COLOR)
 GREEN_COLOR=\x1b[32;01m
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror
 CREATE_OBJ = objs
 
 

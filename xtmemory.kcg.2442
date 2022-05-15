@@ -1,0 +1,1214 @@
+# callgrind format
+version: 1
+creator: xtree-1
+pid: 2442
+cmd: ./minishell
+
+positions: line
+event: curB : currently allocated Bytes
+event: curBk : currently allocated Blocks
+event: totB : total allocated Bytes
+event: totBk : total allocated Blocks
+event: totFdB : total Freed Bytes
+event: totFdBk : total Freed Blocks
+events: curB  curBk  totB  totBk  totFdB  totFdBk 
+fl=(1) /mnt/c/Users/who_c/Desktop/sh-vog/srcs/main.c
+fn=(1) main
+65
+cfi=(2) /mnt/c/Users/who_c/Desktop/sh-vog/srcs/environment.c
+cfn=(2) init_environment
+calls=0 36
+65 0 0 200 1 0 0
+fl=(2)
+fn=(2)
+36 0 0 200 1 0 0
+
+fl=(1)
+fn=(1)
+65
+cfi=(2)
+cfn=(2)
+calls=0 44
+65 0 0 1386 24 0 0
+fl=(2)
+fn=(2)
+44
+cfi=(3) /mnt/c/Users/who_c/Desktop/sh-vog/libft/ft_strdup.c
+cfn=(3) ft_strdup
+calls=0 25
+44 0 0 1386 24 0 0
+fl=(3)
+fn=(3)
+25 0 0 1386 24 0 0
+
+fl=(1)
+fn=(1)
+68
+cfi=(1)
+cfn=(4) prompt
+calls=0 21
+68 0 0 24 4 0 0
+fl=(1)
+fn=(4)
+21
+cfi=(4) /mnt/c/Users/who_c/Desktop/sh-vog/srcs/environment1.c
+cfn=(5) get_var
+calls=0 50
+21 0 0 24 4 0 0
+fl=(4)
+fn=(5)
+50
+cfi=(5) /mnt/c/Users/who_c/Desktop/sh-vog/libft/ft_strjoin.c
+cfn=(6) ft_strjoin
+calls=0 29
+50 0 0 24 4 0 0
+fl=(5)
+fn=(6)
+29 0 0 24 4 0 0
+
+fl=(1)
+fn=(1)
+68
+cfi=(1)
+cfn=(4)
+calls=0 21
+68 0 0 0 0 24 4
+fl=(1)
+fn=(4)
+21
+cfi=(4)
+cfn=(5)
+calls=0 53
+21 0 0 0 0 24 4
+fl=(4)
+fn=(5)
+53
+cfi=(6) /mnt/c/Users/who_c/Desktop/sh-vog/libft/ft_strdel.c
+cfn=(7) ft_strdel
+calls=0 21
+53 0 0 0 0 24 4
+fl=(6)
+fn=(7)
+21 0 0 0 0 24 4
+
+fl=(1)
+fn=(1)
+68
+cfi=(1)
+cfn=(4)
+calls=0 24
+68 0 0 96 16 0 0
+fl=(1)
+fn=(4)
+24
+cfi=(4)
+cfn=(5)
+calls=0 50
+24 0 0 96 16 0 0
+fl=(4)
+fn=(5)
+50
+cfi=(5)
+cfn=(6)
+calls=0 29
+50 0 0 96 16 0 0
+fl=(5)
+fn=(6)
+29 0 0 96 16 0 0
+
+fl=(1)
+fn=(1)
+68
+cfi=(1)
+cfn=(4)
+calls=0 24
+68 0 0 0 0 72 12
+fl=(1)
+fn=(4)
+24
+cfi=(4)
+cfn=(5)
+calls=0 56
+24 0 0 0 0 72 12
+fl=(4)
+fn=(5)
+56
+cfi=(6)
+cfn=(7)
+calls=0 21
+56 0 0 0 0 72 12
+fl=(6)
+fn=(7)
+21 0 0 0 0 72 12
+
+fl=(1)
+fn=(1)
+68
+cfi=(1)
+cfn=(4)
+calls=0 24
+68 0 0 0 0 24 4
+fl=(1)
+fn=(4)
+24
+cfi=(4)
+cfn=(5)
+calls=0 53
+24 0 0 0 0 24 4
+fl=(4)
+fn=(5)
+53
+cfi=(6)
+cfn=(7)
+calls=0 21
+53 0 0 0 0 24 4
+fl=(6)
+fn=(7)
+21 0 0 0 0 24 4
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8) input_handler
+calls=0 38
+70 0 0 4 4 0 0
+fl=(1)
+fn=(8)
+38
+cfi=(7) /mnt/c/Users/who_c/Desktop/sh-vog/libft/ft_strnew.c
+cfn=(9) ft_strnew
+calls=0 19
+38 0 0 4 4 0 0
+fl=(7)
+fn=(9)
+19 0 0 4 4 0 0
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8)
+calls=0 45
+70 0 0 33 11 0 0
+fl=(1)
+fn=(8)
+45
+cfi=(8) /mnt/c/Users/who_c/Desktop/sh-vog/libft/ft_realloc.c
+cfn=(10) ft_realloc
+calls=0 19
+45 0 0 33 11 0 0
+fl=(8)
+fn=(10)
+19 0 0 33 11 0 0
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8)
+calls=0 45
+70 0 0 0 0 22 11
+fl=(1)
+fn=(8)
+45
+cfi=(8)
+cfn=(10)
+calls=0 24
+45 0 0 0 0 22 11
+fl=(8)
+fn=(10)
+24 0 0 0 0 22 11
+
+fl=(1)
+fn=(1)
+76
+cfi=(9) /mnt/c/Users/who_c/Desktop/sh-vog/libft/ft_strsplit.c
+cfn=(11) ft_strsplit
+calls=0 60
+76 0 0 48 3 0 0
+fl=(9)
+fn=(11)
+60 0 0 48 3 0 0
+
+fl=(1)
+fn=(1)
+76
+cfi=(9)
+cfn=(11)
+calls=0 68
+76 0 0 29 3 0 0
+fl=(9)
+fn=(11)
+68
+cfi=(7)
+cfn=(9)
+calls=0 19
+68 0 0 29 3 0 0
+fl=(7)
+fn=(9)
+19 0 0 29 3 0 0
+
+fl=(1)
+fn=(1)
+77 0 0 0 0 26 3
+
+fl=(1)
+fn=(1)
+78
+cfi=(10) /mnt/c/Users/who_c/Desktop/sh-vog/srcs/run_commands.c
+cfn=(12) execution
+calls=0 48
+78 0 0 48 3 0 0
+fl=(10)
+fn=(12)
+48
+cfi=(11) /mnt/c/Users/who_c/Desktop/sh-vog/libft/ft_strsplits.c
+cfn=(13) ft_strsplits
+calls=0 58
+48 0 0 48 3 0 0
+fl=(11)
+fn=(13)
+58 0 0 48 3 0 0
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 48
+78 0 0 29 3 0 0
+fl=(10)
+fn=(12)
+48
+cfi=(11)
+cfn=(13)
+calls=0 66
+48 0 0 29 3 0 0
+fl=(11)
+fn=(13)
+66
+cfi=(7)
+cfn=(9)
+calls=0 19
+66 0 0 29 3 0 0
+fl=(7)
+fn=(9)
+19 0 0 29 3 0 0
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 180 30 0 0
+fl=(10)
+fn=(12)
+49
+cfi=(12) /mnt/c/Users/who_c/Desktop/sh-vog/srcs/exec.c
+cfn=(14) check_one_cmd
+calls=0 87
+49 0 0 180 30 0 0
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15) is_bin
+calls=0 58
+87 0 0 180 30 0 0
+fl=(12)
+fn=(15)
+58
+cfi=(4)
+cfn=(5)
+calls=0 50
+58 0 0 180 30 0 0
+fl=(4)
+fn=(5)
+50
+cfi=(5)
+cfn=(6)
+calls=0 29
+50 0 0 180 30 0 0
+fl=(5)
+fn=(6)
+29 0 0 180 30 0 0
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 0 0 168 28
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 0 0 168 28
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 58
+87 0 0 0 0 168 28
+fl=(12)
+fn=(15)
+58
+cfi=(4)
+cfn=(5)
+calls=0 56
+58 0 0 0 0 168 28
+fl=(4)
+fn=(5)
+56
+cfi=(6)
+cfn=(7)
+calls=0 21
+56 0 0 0 0 168 28
+fl=(6)
+fn=(7)
+21 0 0 0 0 168 28
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 0 0 12 2
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 0 0 12 2
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 58
+87 0 0 0 0 12 2
+fl=(12)
+fn=(15)
+58
+cfi=(4)
+cfn=(5)
+calls=0 53
+58 0 0 0 0 12 2
+fl=(4)
+fn=(5)
+53
+cfi=(6)
+cfn=(7)
+calls=0 21
+53 0 0 0 0 12 2
+fl=(6)
+fn=(7)
+21 0 0 0 0 12 2
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 432 2 0 0
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 432 2 0 0
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 58
+87 0 0 432 2 0 0
+fl=(12)
+fn=(15)
+58
+cfi=(9)
+cfn=(11)
+calls=0 60
+58 0 0 432 2 0 0
+fl=(9)
+fn=(11)
+60 0 0 432 2 0 0
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 1642 52 0 0
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 1642 52 0 0
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 58
+87 0 0 1642 52 0 0
+fl=(12)
+fn=(15)
+58
+cfi=(9)
+cfn=(11)
+calls=0 68
+58 0 0 1642 52 0 0
+fl=(9)
+fn=(11)
+68
+cfi=(7)
+cfn=(9)
+calls=0 19
+68 0 0 1642 52 0 0
+fl=(7)
+fn=(9)
+19 0 0 1642 52 0 0
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 54 4 0 0
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 54 4 0 0
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 64
+87 0 0 54 4 0 0
+fl=(12)
+fn=(15)
+64
+cfi=(4)
+cfn=(16) do_path
+calls=0 27
+64 0 0 54 4 0 0
+fl=(4)
+fn=(16)
+27
+cfi=(5)
+cfn=(17) ft_strchjoin
+calls=0 69
+27 0 0 54 4 0 0
+fl=(5)
+fn=(17)
+69
+cfi=(7)
+cfn=(9)
+calls=0 19
+69 0 0 54 4 0 0
+fl=(7)
+fn=(9)
+19 0 0 54 4 0 0
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 62 4 0 0
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 62 4 0 0
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 64
+87 0 0 62 4 0 0
+fl=(12)
+fn=(15)
+64
+cfi=(4)
+cfn=(16)
+calls=0 27
+64 0 0 62 4 0 0
+fl=(4)
+fn=(16)
+27
+cfi=(5)
+cfn=(18) ft_strjoin2
+calls=0 47
+27 0 0 62 4 0 0
+fl=(5)
+fn=(18)
+47
+cfi=(5)
+cfn=(6)
+calls=0 29
+47 0 0 62 4 0 0
+fl=(5)
+fn=(6)
+29 0 0 62 4 0 0
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 0 0 54 4
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 0 0 54 4
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 64
+87 0 0 0 0 54 4
+fl=(12)
+fn=(15)
+64
+cfi=(4)
+cfn=(16)
+calls=0 27
+64 0 0 0 0 54 4
+fl=(4)
+fn=(16)
+27
+cfi=(5)
+cfn=(18)
+calls=0 50
+27 0 0 0 0 54 4
+fl=(5)
+fn=(18)
+50 0 0 0 0 54 4
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 0 0 142 6
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 0 0 142 6
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 66
+87 0 0 0 0 142 6
+fl=(12)
+fn=(15)
+66
+cfi=(6)
+cfn=(7)
+calls=0 21
+66 0 0 0 0 142 6
+fl=(6)
+fn=(7)
+21 0 0 0 0 142 6
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 0 0 30 2
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 0 0 30 2
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 69
+87 0 0 0 0 30 2
+fl=(12)
+fn=(15)
+69
+cfi=(6)
+cfn=(7)
+calls=0 21
+69 0 0 0 0 30 2
+fl=(6)
+fn=(7)
+21 0 0 0 0 30 2
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 0 0 1642 52
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 0 0 1642 52
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 70
+87 0 0 0 0 1642 52
+fl=(12)
+fn=(15)
+70
+cfi=(13) /mnt/c/Users/who_c/Desktop/sh-vog/libft/ft_free.c
+cfn=(19) ft_free
+calls=0 21
+70 0 0 0 0 1642 52
+fl=(13)
+fn=(19)
+21 0 0 0 0 1642 52
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 0 0 432 2
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 0 0 432 2
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 70
+87 0 0 0 0 432 2
+fl=(12)
+fn=(15)
+70
+cfi=(13)
+cfn=(19)
+calls=0 22
+70 0 0 0 0 432 2
+fl=(13)
+fn=(19)
+22 0 0 0 0 432 2
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 52
+78 0 0 0 0 29 3
+fl=(10)
+fn=(12)
+52
+cfi=(13)
+cfn=(19)
+calls=0 21
+52 0 0 0 0 29 3
+fl=(13)
+fn=(19)
+21 0 0 0 0 29 3
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 52
+78 0 0 0 0 48 3
+fl=(10)
+fn=(12)
+52
+cfi=(13)
+cfn=(19)
+calls=0 22
+52 0 0 0 0 48 3
+fl=(13)
+fn=(19)
+22 0 0 0 0 48 3
+
+fl=(1)
+fn=(1)
+84
+cfi=(13)
+cfn=(19)
+calls=0 21
+84 0 0 0 0 23 2
+fl=(13)
+fn=(19)
+21 0 0 0 0 23 2
+
+fl=(1)
+fn=(1)
+84
+cfi=(13)
+cfn=(19)
+calls=0 22
+84 0 0 0 0 32 2
+fl=(13)
+fn=(19)
+22 0 0 0 0 32 2
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8)
+calls=0 56
+70 0 0 4 2 0 0
+fl=(1)
+fn=(8)
+56
+cfi=(14) /mnt/c/Users/who_c/Desktop/sh-vog/srcs/parse_input.c
+cfn=(20) parser
+calls=0 79
+56 0 0 4 2 0 0
+fl=(14)
+fn=(20)
+79
+cfi=(14)
+cfn=(21) parse_dollar
+calls=0 46
+79 0 0 4 2 0 0
+fl=(14)
+fn=(21)
+46
+cfi=(7)
+cfn=(9)
+calls=0 19
+46 0 0 4 2 0 0
+fl=(7)
+fn=(9)
+19 0 0 4 2 0 0
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8)
+calls=0 56
+70 0 0 7 3 0 0
+fl=(1)
+fn=(8)
+56
+cfi=(14)
+cfn=(20)
+calls=0 79
+56 0 0 7 3 0 0
+fl=(14)
+fn=(20)
+79
+cfi=(14)
+cfn=(21)
+calls=0 50
+79 0 0 7 3 0 0
+fl=(14)
+fn=(21)
+50
+cfi=(5)
+cfn=(22) ft_strchjoinf
+calls=0 84
+50 0 0 7 3 0 0
+fl=(5)
+fn=(22)
+84
+cfi=(5)
+cfn=(17)
+calls=0 69
+84 0 0 7 3 0 0
+fl=(5)
+fn=(17)
+69
+cfi=(7)
+cfn=(9)
+calls=0 19
+69 0 0 7 3 0 0
+fl=(7)
+fn=(9)
+19 0 0 7 3 0 0
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8)
+calls=0 56
+70 0 0 0 0 6 3
+fl=(1)
+fn=(8)
+56
+cfi=(14)
+cfn=(20)
+calls=0 79
+56 0 0 0 0 6 3
+fl=(14)
+fn=(20)
+79
+cfi=(14)
+cfn=(21)
+calls=0 50
+79 0 0 0 0 6 3
+fl=(14)
+fn=(21)
+50
+cfi=(5)
+cfn=(22)
+calls=0 87
+50 0 0 0 0 6 3
+fl=(5)
+fn=(22)
+87 0 0 0 0 6 3
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8)
+calls=0 56
+70 0 0 135 37 0 0
+fl=(1)
+fn=(8)
+56
+cfi=(14)
+cfn=(20)
+calls=0 79
+56 0 0 135 37 0 0
+fl=(14)
+fn=(20)
+79
+cfi=(14)
+cfn=(21)
+calls=0 53
+79 0 0 135 37 0 0
+fl=(14)
+fn=(21)
+53
+cfi=(4)
+cfn=(5)
+calls=0 50
+53 0 0 135 37 0 0
+fl=(4)
+fn=(5)
+50
+cfi=(5)
+cfn=(6)
+calls=0 29
+50 0 0 135 37 0 0
+fl=(5)
+fn=(6)
+29 0 0 135 37 0 0
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8)
+calls=0 56
+70 0 0 0 0 132 36
+fl=(1)
+fn=(8)
+56
+cfi=(14)
+cfn=(20)
+calls=0 79
+56 0 0 0 0 132 36
+fl=(14)
+fn=(20)
+79
+cfi=(14)
+cfn=(21)
+calls=0 53
+79 0 0 0 0 132 36
+fl=(14)
+fn=(21)
+53
+cfi=(4)
+cfn=(5)
+calls=0 56
+53 0 0 0 0 132 36
+fl=(4)
+fn=(5)
+56
+cfi=(6)
+cfn=(7)
+calls=0 21
+56 0 0 0 0 132 36
+fl=(6)
+fn=(7)
+21 0 0 0 0 132 36
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8)
+calls=0 56
+70 0 0 0 0 5 2
+fl=(1)
+fn=(8)
+56
+cfi=(14)
+cfn=(20)
+calls=0 79
+56 0 0 0 0 5 2
+fl=(14)
+fn=(20)
+79
+cfi=(14)
+cfn=(21)
+calls=0 54
+79 0 0 0 0 5 2
+fl=(14)
+fn=(21)
+54 0 0 0 0 5 2
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8)
+calls=0 56
+70 0 0 0 0 7 2
+fl=(1)
+fn=(8)
+56
+cfi=(14)
+cfn=(20)
+calls=0 97
+56 0 0 0 0 7 2
+fl=(14)
+fn=(20)
+97 0 0 0 0 7 2
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8)
+calls=0 56
+70 0 0 0 0 3 1
+fl=(1)
+fn=(8)
+56
+cfi=(14)
+cfn=(20)
+calls=0 79
+56 0 0 0 0 3 1
+fl=(14)
+fn=(20)
+79
+cfi=(14)
+cfn=(21)
+calls=0 53
+79 0 0 0 0 3 1
+fl=(14)
+fn=(21)
+53
+cfi=(4)
+cfn=(5)
+calls=0 53
+53 0 0 0 0 3 1
+fl=(4)
+fn=(5)
+53
+cfi=(6)
+cfn=(7)
+calls=0 21
+53 0 0 0 0 3 1
+fl=(6)
+fn=(7)
+21 0 0 0 0 3 1
+
+fl=(1)
+fn=(1)
+70
+cfi=(1)
+cfn=(8)
+calls=0 56
+70 0 0 18 1 0 0
+fl=(1)
+fn=(8)
+56
+cfi=(14)
+cfn=(20)
+calls=0 98
+56 0 0 18 1 0 0
+fl=(14)
+fn=(20)
+98
+cfi=(3)
+cfn=(3)
+calls=0 25
+98 0 0 18 1 0 0
+fl=(3)
+fn=(3)
+25 0 0 18 1 0 0
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 92 3 0 0
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 92 3 0 0
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 64
+87 0 0 92 3 0 0
+fl=(12)
+fn=(15)
+64
+cfi=(4)
+cfn=(16)
+calls=0 24
+64 0 0 92 3 0 0
+fl=(4)
+fn=(16)
+24
+cfi=(5)
+cfn=(6)
+calls=0 29
+24 0 0 92 3 0 0
+fl=(5)
+fn=(6)
+29 0 0 92 3 0 0
+
+fl=(1)
+fn=(1)
+78
+cfi=(10)
+cfn=(12)
+calls=0 49
+78 0 0 18 1 0 0
+fl=(10)
+fn=(12)
+49
+cfi=(12)
+cfn=(14)
+calls=0 87
+49 0 0 18 1 0 0
+fl=(12)
+fn=(14)
+87
+cfi=(12)
+cfn=(15)
+calls=0 62
+87 0 0 18 1 0 0
+fl=(12)
+fn=(15)
+62
+cfi=(3)
+cfn=(3)
+calls=0 25
+62 0 0 18 1 0 0
+fl=(3)
+fn=(3)
+25 0 0 18 1 0 0
+
+fl=(1)
+fn=(1)
+80
+cfi=(13)
+cfn=(19)
+calls=0 21
+80 0 0 0 0 6 1
+fl=(13)
+fn=(19)
+21 0 0 0 0 6 1
+
+fl=(1)
+fn=(1)
+80
+cfi=(13)
+cfn=(19)
+calls=0 22
+80 0 0 0 0 16 1
+fl=(13)
+fn=(19)
+22 0 0 0 0 16 1
+
+fl=(1)
+fn=(1)
+86
+cfi=(13)
+cfn=(19)
+calls=0 21
+86 0 0 0 0 1386 24
+fl=(13)
+fn=(19)
+21 0 0 0 0 1386 24
+
+fl=(1)
+fn=(1)
+86
+cfi=(13)
+cfn=(19)
+calls=0 22
+86 0 0 0 0 200 1
+fl=(13)
+fn=(19)
+22 0 0 0 0 200 1
+
+totals: 0 0 4541 211 4541 211

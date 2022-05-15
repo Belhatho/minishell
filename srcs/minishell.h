@@ -23,8 +23,8 @@ char	**g_env;
 
 void	prompt(void);
 
-char	*parser(char *input);
-char	*parse_home(char *path, int rev);
+void	parser(char **input);
+char	*parse_home(char *path);
 char	*do_path(char *name, char *d_name);
 
 int		print_env(void);

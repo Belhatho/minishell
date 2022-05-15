@@ -69,7 +69,7 @@ char			*ft_strchjoin(const char *s1, char c);
 char			*ft_strchjoinf(char *s1, char c);
 int				ft_strstartswith(char *s1, char *s2);
 int				ft_strendswith(char *s1, char *s2);
-int				ft_isempty(char *str, int spce);
+int				ft_isempty(char **str, int spce);
 int				is_first_word(char *s1, char *s2);
 char			*ft_strmap(char const *s, char (*f)(char));
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));

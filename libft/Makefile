@@ -43,7 +43,7 @@ WARN_COLOR=\x1b[33;01m
 BUILD_PRINT = $(WARN_COLOR)libft successfully compiles$(NO_COLOR)
 OK_STRING=$(OK_COLOR)[OK]$(NO_COLOR)
 KO_STRING=$(ERROR_COLOR)[KO]$(NO_COLOR)
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 
 NAME = libft.a
 

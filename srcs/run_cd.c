@@ -16,17 +16,18 @@ void	ft_chdir(char *path, int print)
 {
 	char	*cwd;
 	char	buff[4097];
+	char	*parsed;
 
 	cwd = getcwd(buff, 4096);
 	if (!chdir(path))
 	{
-		// ft_put2str("lop0\n","");
 		if (print)
-			ft_putendl(parse_home(path, 0));
-		// ft_put2str("lop1\n","");
+		{
+			parsed = parse_home(path);
+			ft_putendl(parsed);
+			free(parsed);
+		}
 		set_env_var("OLDPWD", cwd);
-		// ft_put2str("lop2\n","");
-
 	}
 	else
 	{

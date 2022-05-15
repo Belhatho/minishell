@@ -12,21 +12,30 @@
 
 #include "libft.h"
 
-int	ft_isempty(char *str, int consider_space)
+int	ft_isempty(char **str, int consider_space)
 {
 	int	i;
 	int	min;
 	int	max;
+	int ret;
 
 	i = -1;
+	ret = 0;
 	min = 32 + consider_space;
 	max = 126;
-	while (str[++i])
+	if (!(*str))
+		ret = 1;
+	else
 	{
-		if (str[i] >= min && str[i] <= max)
-			return (0);
+		while ((*str)[++i])
+		{
+			if ((*str)[i] >= min && (*str)[i] <= max)
+				ret = 0;
+		}
 	}
-	return (1);
+	if (ret)
+		free(*str);
+	return (ret);
 }
 
 int	is_first_word(char *s1, char *s2)

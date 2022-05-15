@@ -42,11 +42,12 @@ int	execution(char **commands)
 	char	**cmd;
 
 	i = -1;
+	ret = 1;
 	while (commands && commands[++i])
 	{
 		cmd = ft_strsplits(commands[i]);
 		ret = check_one_cmd(cmd);
-		if (!ret)
+		if (ret == 0)
 			ft_put4str("my_sh: ", "command not found: ", cmd[0], "\n");
 		ft_free(&cmd);
 		if (ret == -1)

@@ -12,7 +12,7 @@
 
 #include"minishell.h"
 
-char	*parse_home(char *path, int rev)
+char	*parse_home(char *path)
 {
 	char	*home_path;
 	char	*ret;
@@ -20,21 +20,13 @@ char	*parse_home(char *path, int rev)
 	if (!path)
 		return (NULL);
 	home_path = get_var("HOME");
-	if (rev && !ft_strstartswith(path, "~"))
-		return (ft_strdup(path));
-	if (!rev && !ft_strstartswith(path, home_path))
-		return (ft_strdup(path));
-	// if (!ft_strstartswith(path, rev ? "~" : home_path))
-	// 	return (ft_strdup(path));
-	if (rev)
-		ret = do_path(home_path, path + 1);
+	if ((!ft_strstartswith(path, "~")) ||\
+			(!ft_strstartswith(path, home_path)))
+		return ft_strdup (path);
+	if (*(path + ft_strlen(home_path)) == '\0')
+		ret = ft_strdup("~");
 	else
-	{
-		if (*(path + ft_strlen(home_path)) == '\0')
-			ret = ft_strdup("~");
-		else
-			ret = do_path("~", path + ft_strlen(home_path));
-	}
+		ret = do_path("~", path + ft_strlen(home_path));
 	return (ret);
 }
 
@@ -44,47 +36,66 @@ char	*parse_dollar(char *input, int index)
 	char	*val;
 	char	c;
 
-	key = ft_strnew(1);
-	while (input[index] && !isspce(input[index]) && input[index] != '$')
+	key = ft_strnew(0);
+	while (input[index] && !isspce(input[index]) \
+	&& input[index] != ';' && input[index] != '$')
 	{
 		c = input[index];
 		key = ft_strchjoinf(key, c);
 		index++;
 	}
 	val = get_var(key);
-	if (!val)
-	{
-		free(key);
-		return (NULL);
-	}
 	free(key);
 	return (val);
 }
 
-char	*parser(char *in)
+char	*parsetilde(char *rt)
 {
-	int		i;
+	char	*tmp;
 	char	*ret;
 
-	i = -1;
-	ret = ft_strnew(0);
-	if ((ft_strchr(in, '$') != NULL) || (ft_strchr(in, '~') != NULL))
+	tmp = ft_strchjoin(get_var("HOME"), '/');
+	if (rt)
+		ret = do_path(rt, tmp);
+	else
+		ret = ft_strdup(tmp);
+	ft_strdel(&tmp);
+	return (ret);
+}
+
+char	*parse_expansions(char *rt, char *in, int *n)
+{
+	char	*ret;
+	int		i;
+
+	i = *n;
+	ret = NULL;
+	if (in[i] == '$' && in[i + 1])
 	{
-		while (in[++i])
-		{
-			if (in[i] == '$' && in[i + 1])
-			{
-				ret = ft_strjoin(ret, parse_dollar(in, i + 1));
-				while (in[i + 1] && !isspce(in[i + 1]) && in[i + 1] != '$')
-					i++;
-			}
-			else if (in[i] == '~' && ((i != 0 && isspce(in[i - 1])) || i == 0))
-				ret = do_path(ret, ft_strchjoin(get_var("HOME"), '/'));
-			else
-				ret = ft_strchjoin(ret, in[i]);
-		}
-		free(in);
-		return (ret);
+		ret = ft_strjoin(rt, parse_dollar(in, i + 1));
+		while (in[i + 1] && !isspce(in[i + 1]) && in[i + 1] != '$'\
+		&& in[i + 1] != ';')
+			i++;
 	}
-	return (in);
+	else if (in[i] == '~' && ((i != 0 && isspce(in[i - 1])) || i == 0))
+		ret = parsetilde(rt);
+	else
+		ret = ft_strchjoin(rt, in[i]);
+	free(rt);
+	*n = i;
+	return (ret);
+}
+
+void	parser(char **input)
+{
+	char	*ret;
+	int		i;
+
+	i = -1;
+	ret = NULL;
+	while ((*input) && (*input)[++i])
+		ret = parse_expansions(ret, *input, &i);
+	free(*input);
+	*input = ft_strdup(ret);
+	ft_strdel(&ret);
 }

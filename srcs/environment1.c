@@ -64,7 +64,7 @@ int	find_var_index(char *var)
 	char	*tmp;
 
 	i = -1;
-	while (g_env[++i])
+	while (g_env && g_env[++i])
 	{
 		tmp = ft_strchjoin(var, '=');
 		if (ft_strstartswith(g_env[i], tmp))

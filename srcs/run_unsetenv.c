@@ -32,6 +32,7 @@ static void	unset_var(char *input)
 			i++;
 			var_count++;
 		}
+		g_env[i] = 0;
 		g_env = realloc_env(var_count - 1);
 	}
 }
@@ -41,11 +42,11 @@ int	run_unsetenv(char **input)
 	int	i;
 
 	i = 0;
-	if (!input[1])
+	if (!input || !input[1])
 		ft_putendl("unsetenv: Too few arguments.");
 	else
 	{
-		while (input[++i])
+		while (input && input[++i])
 			unset_var(input[i]);
 	}
 	return (1);
