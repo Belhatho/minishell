@@ -6,7 +6,7 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:14:36 by belhatho          #+#    #+#             */
-/*   Updated: 2022/05/16 14:39:10 by belhatho         ###   ########.fr       */
+/*   Updated: 2022/05/16 16:11:53 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,23 @@ static int	has_two_args(char **args)
 	char	buff[4096 + 1];
 	char	*tmp;
 
-	if (args[2])
+	if (args[3])
 	{
-		if (args[3])
-		{
-			ft_putendl("cd: too many arguments");
-			return (1);
-		}
-		cwd = getcwd(buff, 4096);
-		tmp = strreplace(cwd, args[1], args[2]);
-		if (!tmp)
-		{
-			ft_putstr("cd: string not in pwd: ");
-			ft_putendl(args[1]);
-			free(tmp);
-			return (1);
-		}
-		ft_chdir(tmp, 1);
-		free(tmp);
+		ft_putendl("cd: too many arguments");
 		return (1);
 	}
-	return (0);
+	cwd = getcwd(buff, 4096);
+	tmp = strreplace(cwd, args[1], args[2]);
+	if (!tmp)
+	{
+		ft_putstr("cd: string not in pwd: ");
+		ft_putendl(args[1]);
+		ft_strdel(&tmp);
+		return (1);
+	}
+	ft_chdir(tmp, 1);
+	free(tmp);
+	return (1);
 }
 
 int	run_cd(char **input)
@@ -80,22 +76,14 @@ int	run_cd(char **input)
 
 	home = get_var("HOME");
 	if (!input[1])
-	{
 		ft_chdir(home, 0);
-		return (1);
-	}
-	if (has_two_args(input))
-		return (1);
-	if (ft_strequ(input[1], "--"))
-	{
+	else if (input[2])
+		has_two_args(input);
+	else if (ft_strequ(input[1], "--"))
 		ft_chdir(home, 0);
-		return (1);
-	}
 	else if (input[1][0] == '-' && !input[0][2])
-	{
 		ft_chdir(get_var("OLDPWD"), 1);
-		return (1);
-	}
-	ft_chdir(input[1], 0);
+	else
+		ft_chdir(input[1], 0);
 	return (1);
 }
