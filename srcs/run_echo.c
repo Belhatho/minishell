@@ -28,7 +28,6 @@ static int	check_flag(char *arg, int n)
 	return (1);
 }
 
-
 void	check_quote(char *input)
 {
 	int	start;
