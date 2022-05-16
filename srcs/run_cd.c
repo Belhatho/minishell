@@ -6,11 +6,23 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:14:36 by belhatho          #+#    #+#             */
-/*   Updated: 2022/01/18 22:14:37 by belhatho         ###   ########.fr       */
+/*   Updated: 2022/05/16 14:39:10 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	cd_error(char *path)
+{
+	ft_putstr("cd: ");
+	if (access(path, F_OK) == -1)
+		ft_putstr("no such file or directory: ");
+	else if (access(path, R_OK) == -1)
+		ft_putstr("permission denied: ");
+	else
+		ft_putstr("not a directory: ");
+	ft_putendl(path);
+}
 
 void	ft_chdir(char *path, int print)
 {
@@ -30,16 +42,7 @@ void	ft_chdir(char *path, int print)
 		set_env_var("OLDPWD", cwd);
 	}
 	else
-	{
-		ft_putstr("cd: ");
-		if (access(path, F_OK) == -1)
-			ft_putstr("no such file or directory: ");
-		else if (access(path, R_OK) == -1)
-			ft_putstr("permission denied: ");
-		else
-			ft_putstr("not a directory: ");
-		ft_putendl(path);
-	}
+		cd_error(path);
 }
 
 static int	has_two_args(char **args)

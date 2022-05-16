@@ -12,6 +12,24 @@
 
 #include "minishell.h"
 
+int	check_exec(char *path, struct stat st, char **input)
+{
+	if (st.st_mode & S_IFREG)
+	{
+		if (st.st_mode & S_IXUSR)
+			return (run(path, input));
+		else
+			ft_put3str("my_sh: permision denied: ", input[0], "\n");
+		return (1);
+	}
+	if (st.st_mode & S_IFDIR && ft_strlen2(input) == 1)
+	{
+		ft_chdir(input[0], 0);
+		return (1);
+	}
+	return (0);
+}
+
 static int	is_builtin(char **cmd)
 {
 	if (ft_strequ(cmd[0], "exit"))
@@ -26,24 +44,6 @@ static int	is_builtin(char **cmd)
 		return (run_cd(cmd));
 	if (ft_strequ(cmd[0], "echo"))
 		return (run_echo(cmd + 1));
-	return (0);
-}
-
-int	check_exec(char *path, struct stat st, char **input)
-{
-	if (st.st_mode & S_IFREG)
-	{
-		if (st.st_mode & S_IEXEC)
-			return (run(path, input));
-		else
-			ft_put3str("my_sh: permision denied: ", input[0], "\n");
-		return (1);
-	}
-	if (st.st_mode & S_IFDIR && ft_strlen2(input) == 1)
-	{
-		ft_chdir(input[0], 0);
-		return (1);
-	}
 	return (0);
 }
 

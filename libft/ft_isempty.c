@@ -12,26 +12,17 @@
 
 #include "libft.h"
 
-int	ft_isempty(char **str, int consider_space)
+int	ft_isempty(char **str)
 {
 	int	i;
-	int	min;
-	int	max;
-	int ret;
+	int	ret;
 
 	i = -1;
-	ret = 0;
-	min = 32 + consider_space;
-	max = 126;
-	if (!(*str))
-		ret = 1;
-	else
+	ret = 1;
+	while (str && (*str) && (*str)[++i])
 	{
-		while ((*str)[++i])
-		{
-			if ((*str)[i] >= min && (*str)[i] <= max)
-				ret = 0;
-		}
+		if ((*str)[i] > 32 && (*str)[i] <= 126)
+			ret = 0;
 	}
 	if (ret)
 		free(*str);

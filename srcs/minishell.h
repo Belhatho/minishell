@@ -31,7 +31,7 @@ int		print_env(void);
 void	init_environment(int ac, char **av, char **env);
 char	**realloc_env(int size);
 
-int		execution(char **commands);
+int		execution(char ***commands);
 int		run(char *cmd, char **input);
 int		check_one_cmd(char **input);
 

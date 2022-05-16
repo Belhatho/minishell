@@ -33,21 +33,20 @@ char	*input_handler(void)
 	char	*input;
 	char	buf;
 	int		nbr_oct;
-	int		i;
-	int		c;
+	int		i[2];
 
 	input = ft_strnew(0);
-	c = 1;
-	i = 0;
+	i[0] = 0;
+	i[1] = 1;
 	nbr_oct = read(0, &buf, 1);
 	while (nbr_oct && buf != '\n')
 	{
-		*(input + i++) = buf;
-		input = ft_realloc((void **)(&input), c, c + 1);
-		c++;
+		*(input + i[0]++) = buf;
+		input = ft_realloc((void **)(&input), i[1], i[1] + 1);
+		i[1]++;
 		nbr_oct = read(0, &buf, 1);
 	}
-	*(input + i) = '\0';
+	*(input + i[0]) = '\0';
 	if (!nbr_oct)
 	{
 		free(input);
@@ -70,17 +69,15 @@ int	main(int ac, char **av, char **env)
 		prompt();
 		signal(SIGINT, ft_signal);
 		input = input_handler();
-		if (ft_isempty(&input, 1))
+		if (ft_isempty(&input))
 			continue ;
 		cmds = ft_strsplit(input, ';');
 		free(input);
-		if (execution(cmds) == -1)
+		if (execution(&cmds) == -1)
 		{
-			ft_free(&cmds);
 			ft_putendl("\033[0;31m my_sh terminated.\033[0m");
 			break ;
 		}
-		ft_free(&cmds);
 	}
 	ft_free(&g_env);
 	return (0);

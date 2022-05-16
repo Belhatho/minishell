@@ -6,7 +6,7 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 15:19:03 by belhatho          #+#    #+#             */
-/*   Updated: 2022/03/14 04:42:13 by belhatho         ###   ########.fr       */
+/*   Updated: 2022/05/16 13:36:50 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,25 @@ int	run(char *cmd, char **input)
 		ft_put3str("my_sh: ", "Fork failed to create a new process.", "\n");
 		return (0);
 	}
-	else if (pid == 0)
+	if (pid == 0 && execve(cmd, input, g_env) == -1)
 	{
-		if (execve(cmd, input, g_env) == -1)
-		{
-			ft_put3str("my_sh: command not found: ", input[0], "\n");
-			return (-1);
-		}
+		ft_put4str("my_sh: ", "command not found: ", cmd, "\n");
+		exit(-1);
 	}
 	wait(&pid);
 	return (1);
 }
 
-int	execution(char **commands)
+int	execution(char ***commandss)
 {
 	int		i;
 	int		ret;
 	char	**cmd;
+	char	**commands;
 
 	i = -1;
 	ret = 1;
+	commands = *commandss;
 	while (commands && commands[++i])
 	{
 		cmd = ft_strsplits(commands[i]);
@@ -53,5 +52,6 @@ int	execution(char **commands)
 		if (ret == -1)
 			break ;
 	}
+	ft_free(commandss);
 	return (ret);
 }
