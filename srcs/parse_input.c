@@ -20,9 +20,9 @@ char	*parse_home(char *path)
 	if (!path)
 		return (NULL);
 	home_path = get_var("HOME");
-	if ((!ft_strstartswith(path, "~")) || \
+	if ((!ft_strstartswith(path, "~")) ||\
 			(!ft_strstartswith(path, home_path)))
-		return (ft_strdup (path));
+		return ft_strdup (path);
 	if (*(path + ft_strlen(home_path)) == '\0')
 		ret = ft_strdup("~");
 	else
@@ -54,7 +54,7 @@ char	*parsetilde(char *rt)
 	char	*tmp;
 	char	*ret;
 
-	tmp = ft_strchjoin(get_var("HOME"), '/');
+	tmp = do_path(get_var("HOME"), "/");
 	if (rt)
 		ret = do_path(rt, tmp);
 	else
