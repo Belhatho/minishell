@@ -32,8 +32,11 @@ void	init_environment(int ac, char **av, char **env);
 char	**realloc_env(int size);
 
 int		execution(char ***commands);
+int		check_one_cmd(char ***input);
+int		check_exec(char *path, struct stat st, char ***in);
+int		is_bin(char ***input);
+int		is_builtin(char ***input);
 int		run(char *cmd, char **input);
-int		check_one_cmd(char **input);
 
 int		run_cd(char **input);
 void	ft_chdir(char *path, int print);

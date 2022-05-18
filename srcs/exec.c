@@ -12,28 +12,53 @@
 
 #include "minishell.h"
 
-int	check_exec(char *path, struct stat st, char **input)
+int	is_bin(char ***in)
 {
-	if (st.st_mode & S_IFREG)
+	struct stat	st;
+	char		**path;
+	char		*exc;
+	char		**input;
+	int			i;
+
+
+	i = 0;
+	input = *in;
+	path = ft_strsplit(get_var("PATH"), ':');
+	while (path && path[i])
 	{
-		if (st.st_mode & S_IXUSR)
-			return (run(path, input));
+		if (is_first_word(path[i], input[0]))
+			exc = ft_strdup(input[0]);
 		else
-			ft_put3str("my_sh: permision denied: ", input[0], "\n");
-		return (1);
+			exc = do_path(path[i], input[0]);
+		if (lstat(exc, &st) == -1)
+			ft_strdel(&exc);
+		else 
+		{
+			int	ret;
+			ret = check_exec(exc, st, in);
+			ft_strdel(&exc);
+			ft_free(&path);
+			if (ret == -2)
+				free_exit();
+			if (ret == 1)
+				return (1);
+		}
+		i++;
 	}
-	if (st.st_mode & S_IFDIR && ft_strlen2(input) == 1)
-	{
-		ft_chdir(input[0], 0);
-		return (1);
-	}
+	ft_free(&path);
 	return (0);
 }
 
-static int	is_builtin(char **cmd)
+int	is_builtin(char ***cmds)
 {
+	char **cmd;
+
+	cmd = *cmds;
 	if (ft_strequ(cmd[0], "exit"))
+	{
+		ft_free(cmds);
 		return (-1);
+	}
 	if (ft_strequ(cmd[0], "env"))
 		return (print_env());
 	if (ft_strequ(cmd[0], "setenv"))
@@ -44,49 +69,5 @@ static int	is_builtin(char **cmd)
 		return (run_cd(cmd));
 	if (ft_strequ(cmd[0], "echo"))
 		return (run_echo(cmd + 1));
-	return (0);
-}
-
-static int	is_bin(char **input)
-{
-	struct stat	st;
-	char		**path;
-	char		*exc;
-	int			i;
-
-	i = 0;
-	path = ft_strsplit(get_var("PATH"), ':');
-	while (path && path[i])
-	{
-		if (is_first_word(path[i], input[0]))
-			exc = ft_strdup(input[0]);
-		else
-			exc = do_path(path[i], input[0]);
-		if (lstat(exc, &st) == -1)
-			ft_strdel(&exc);
-		else if (check_exec(exc, st, input))
-		{
-			ft_strdel(&exc);
-			ft_free(&path);
-			return (1);
-		}
-		i++;
-	}
-	ft_free(&path);
-	return (0);
-}
-
-int	check_one_cmd(char **input)
-{
-	int			isbuiltin;
-	struct stat	st;
-
-	isbuiltin = is_builtin(input);
-	if (isbuiltin == -1)
-		return (-1);
-	if (isbuiltin == 1 || is_bin(input))
-		return (1);
-	if (lstat(input[0], &st) != -1)
-		return (check_exec(input[0], st, input));
 	return (0);
 }
