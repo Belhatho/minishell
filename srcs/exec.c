@@ -6,42 +6,44 @@
 /*   By: belhatho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 03:52:52 by belhatho          #+#    #+#             */
-/*   Updated: 2022/05/12 03:53:10 by belhatho         ###   ########.fr       */
+/*   Updated: 2022/05/18 07:52:32 by belhatho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_bin(char ***in)
+int	bin_check_ex(char **exc, struct stat st, char ***input)
+{
+	int	ret;
+
+	ret = check_exec(*exc, st, input);
+	ft_strdel(exc);
+	if (ret == -2)
+		free_exit();
+	return (1);
+}
+
+int	is_bin(char ***input)
 {
 	struct stat	st;
 	char		**path;
 	char		*exc;
-	char		**input;
 	int			i;
 
-
 	i = 0;
-	input = *in;
 	path = ft_strsplit(get_var("PATH"), ':');
 	while (path && path[i])
 	{
-		if (is_first_word(path[i], input[0]))
-			exc = ft_strdup(input[0]);
+		if (is_first_word(path[i], (*input)[0]))
+			exc = ft_strdup((*input)[0]);
 		else
-			exc = do_path(path[i], input[0]);
+			exc = do_path(path[i], (*input)[0]);
 		if (lstat(exc, &st) == -1)
 			ft_strdel(&exc);
-		else 
+		else
 		{
-			int	ret;
-			ret = check_exec(exc, st, in);
-			ft_strdel(&exc);
 			ft_free(&path);
-			if (ret == -2)
-				free_exit();
-			if (ret == 1)
-				return (1);
+			return (bin_check_ex(&exc, st, input));
 		}
 		i++;
 	}
@@ -51,7 +53,7 @@ int	is_bin(char ***in)
 
 int	is_builtin(char ***cmds)
 {
-	char **cmd;
+	char	**cmd;
 
 	cmd = *cmds;
 	if (ft_strequ(cmd[0], "exit"))

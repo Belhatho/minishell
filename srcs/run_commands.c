@@ -25,9 +25,8 @@ int	run(char *cmd, char **input)
 	}
 	if (pid == 0 && execve(cmd, input, g_env) == -1)
 	{
-		ft_put4str("my_sh: ", "command not found: ", cmd, "\n");
+		ft_put2str("my_sh: command not found: ", input[0]);
 		return (-1);
-		// free_exit();
 	}
 	wait(&pid);
 	return (1);
@@ -42,9 +41,8 @@ int	check_exec(char *path, struct stat st, char ***in)
 	{
 		if (st.st_mode & S_IXUSR)
 		{
-			if (run(path, input) == -1) //leak on execv=-1! **if run = -1 > free
+			if (run(path, input) == -1)
 			{
-				ft_put4str("my_sh: -1! ", "command not found: ", path, "\n");
 				ft_free(in);
 				return (-2);
 			}
@@ -78,14 +76,12 @@ int	check_one_cmd(char ***input)
 	{
 		ret = check_exec((*input)[0], st, input);
 		if (ret == -2)
-			{ return(-2);free_exit();}
+			free_exit();
 		return (ret);
 	}
-	// input freed in check_exec!!
 	return (0);
 }
 
-#include<stdio.h>
 int	execution(char ***commandss)
 {
 	int		i;
@@ -100,15 +96,10 @@ int	execution(char ***commandss)
 	{
 		cmd = ft_strsplits(commands[i]);
 		ret = check_one_cmd(&cmd);
-		
-		ft_putstr("check1cmd: ret=");ft_putnbr(ret);ft_putchar('\n');
 		if (ret == -1)
 			break ;
 		if (ret == 0)
-		{
 			ft_put4str("my_sh: ", "command not found: ", cmd[0], "\n");
-			 //free cmd in check_one_cmd!!
-		}
 		ft_free(&cmd);
 	}
 	ft_free(commandss);
